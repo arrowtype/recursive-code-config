@@ -1,10 +1,8 @@
-# all sorts of font manipulation
+# to enable all sorts of font manipulation
 fonttools
-
-# to run font splitting script for specimen
-fire
 
 # to run the code font instantiation script
 opentype-feature-freezer
 
+# to remove components in code ligatures for improved rendering
 skia-pathops
