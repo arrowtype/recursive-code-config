@@ -1,0 +1,10 @@
+# all sorts of font manipulation
+fonttools
+
+# to run font splitting script for specimen
+fire
+
+# to run the code font instantiation script
+opentype-feature-freezer
+
+skia-pathops
