@@ -12,7 +12,7 @@ If you find issues in the fonts themselves, please check if they are already kno
 
 ## Usage
 
-0. Set up this Python project
+### 0. Set up this Python project
 
 - To work directly with these examples, you should have [Git set up on your computer](https://help.github.com/en/github/getting-started-with-github/set-up-git).
 - To use DrawBot as a module, you must also [Download Python](http://python.org/download/) and install it if you haven’t already.
@@ -33,7 +33,7 @@ source venv/bin/activate         # activate the virtual environment
 pip install -r requirements.txt  # install dependencies
 ```
 
-1. Customize your font settings in `config.yaml`
+### 1. Customize your font settings in `config.yaml`
 
 This file uses YAML. Hopefully, it is fairly self-explanatory. If not, file an issue and someone will hopefully help out!
 
@@ -58,7 +58,7 @@ Options:
   ss11 # simplified 1
 ```
 
-1. Build the fonts!
+### 2. Build the fonts!
 
 Build the fonts by running the main Python script in the project:
 
@@ -68,9 +68,9 @@ python3 instantiate-code-fonts.py
 
 It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
 
-## To do
+## Project to-do items
 
-- [ ] improve output file names
+- [ ] improve output file names with custom names
 - [ ] fix or surpress console warnings from feature freezer (e.g. below)
 
 ```console
