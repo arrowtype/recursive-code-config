@@ -4,20 +4,23 @@ You can get premade Recursive fonts for Desktop, Web, & Code at https://github.c
 
 But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
 
-Note: this is an experimental repo & mostly for entertainment. It’s not really an official part of the Recursive project; I just hope it’s fun & helpful to some people. If it’s not, Sorry! Feel free to make a PR to improve it, or to just use the [pre-configured Code fonts](https://github.com/arrowtype/recursive/releases/latest).
+Note: this is an experimental repo & mostly for entertainment. It’s not really an official part of the Recursive project; I just hope it’s fun & helpful to some people. If it’s not, sorry! Feel free to make a PR to improve it, or to just use the [pre-configured Code fonts](https://github.com/arrowtype/recursive/releases/latest).
 
-If you find issues in this customization workflow, please report them in this repo, at https://github.com/arrowtype/recursive-code-config/issues.
+If you find issues in this customization workflow, please report them in this repo’s [Issues](https://github.com/arrowtype/recursive-code-config/issues).
 
-If you find issues in the fonts themselves, please report them at https://github.com/arrowtype/recursive/issues.
+If you find issues in the fonts themselves, please report them in the [Recursive project Issues](https://github.com/arrowtype/recursive/issues).
+
 
 ## Usage
 
 The basic way to use this tool is to:
-1. Clone the repo
-2. Configure your font options
+
+1. Clone the repo and install dependencies (you may wish to fork first, so you can save your preferences to GitHub)
+2. Configure your font options in `config.yaml`
 3. Run the build script
 
-This instantiates custom fonts for Regular, Italic, Bold, and Bold Italic styles, which you can then use in your preferred editor.
+This instantiates custom fonts for Regular, Italic, Bold, and Bold Italic styles, which you can then use in your preferred editor. One VS Code theme that supports Italics is the [Recursive Theme](https://github.com/arrowtype/recursive-theme).
+
 
 ### Prerequisites for this Python project
 
@@ -39,6 +42,7 @@ python3 -m venv venv             # make a virtual environment called "venv"
 source venv/bin/activate         # activate the virtual environment
 pip install -r requirements.txt  # install dependencies
 ```
+
 
 ### 1. Customize your font settings in `config.yaml`
 
@@ -69,6 +73,7 @@ Options:
 
 ![OpenType features](font-data/img/recursive-ot_features.png)
 
+
 ### 2. Build the fonts!
 
 Build the fonts by running the main Python script in the project:
@@ -78,6 +83,7 @@ python3 instantiate-code-fonts.py
 ```
 
 It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
+
 
 ## Project to-dos
 
