@@ -46,15 +46,18 @@ Fonts:
 # ss05 # simplified l
 # ss06 # simplified r
 # ss07 # serifless L and Z
+# ss07 # serifless L and Z
 # ss08 # simplified @
 # ss09 # simplified 6 and 9
 # ss10 # dotted 0
 # ss11 # simplified 1
 
-Options:
-  dlig
-  ss02
-  ss03
-  ss05
-  ss07
-  ss09
+Features:
+- ss02 # single-story g
+- ss03 # simplified f
+- ss05 # simplified l
+- ss07 # serifless L and Z
+- ss09 # simplified 6 and 9
+
+# Freeze in code ligatures? True or False
+Code Ligatures: True

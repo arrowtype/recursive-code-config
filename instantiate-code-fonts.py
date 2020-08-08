@@ -54,8 +54,6 @@ fontPath = "./font-data/Recursive_VF_1.054.ttf"
 def splitFont(
         outputDirectory=f"RecMono-{fontOptions['Family Name']}",
         newName="Rec Mono",
-        ttc=False,
-        zip=False,
 ):
 
     # access font as TTFont object
@@ -151,32 +149,10 @@ def splitFont(
         # Code font special stuff in post processing
 
         # freeze in rvrn features with pyftfeatfreeze: serifless 'f', unambiguous 'l', '6', '9'
-        pyftfeatfreeze.main(["--features=rvrn,ss03,ss05,ss07,ss09", outputPath, outputPath])
+        pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])}", outputPath, outputPath])
 
-        # swap dlig2calt to make code ligatures work in old code editor apps
-        dlig2calt(outputPath, inplace=True)
-
-    # -----------------------------------------------------------
-    # make TTC (truetype collection) of fonts – doesn't currently work on Mac very well :(
-
-    if ttc:
-        # make list of fonts in subdir
-        fontPaths = [
-            os.path.abspath(outputSubDir + "/" + x)
-            for x in os.listdir(outputSubDir)
-        ]
-
-        # form command
-        command = f"otf2otc {' '.join(fontPaths)} -o {outputDirectory}/RecMono-{package}.ttc"
-        print("▶", command, "\n")
-
-        # run command in shell
-        subprocess.run(command.split(), check=True, text=True)
-
-        # remove dir with individual fontpaths
-        shutil.rmtree(os.path.abspath(outputSubDir))
+        if fontOptions['Code Ligatures']:
+            # swap dlig2calt to make code ligatures work in old code editor apps
+            dlig2calt(outputPath, inplace=True)
 
 splitFont()
-
-# if __name__ == "__main__":
-#     fire.Fire(splitFont)
