@@ -4,6 +4,12 @@ You can get premade Recursive fonts for Desktop, Web, & Code at https://github.c
 
 But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
 
+Note: this is an experimental repo & mostly for entertainment. I am not being paid to make this; I just hope it’s fun & helpful to some people. If it’s not, Sorry! Feel free to make a PR to improve it, or just use the [pre-configured Code fonts](https://github.com/arrowtype/recursive/releases/latest).
+
+If you find issues in this customization workflow, please report them in this repo, at https://github.com/arrowtype/recursive-code-config/issues.
+
+If you find issues in the fonts themselves, please check if they are already known and if not please report them at https://github.com/arrowtype/recursive/issues.
+
 ## Usage
 
 0. Set up this Python project
@@ -52,13 +58,21 @@ Options:
   ss11 # simplified 1
 ```
 
-1. Build the font!
+1. Build the fonts!
+
+Build the fonts by running the main Python script in the project:
 
 ```bash
 python3 instantiate-code-fonts.py
 ```
 
+It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
+
 ## To do
 
-- [ ] let config options control font features
 - [ ] improve output file names
+- [ ] fix or surpress console warnings from feature freezer (e.g. below)
+
+```console
+WARNING: [applySubstitutions] Cannot remap 'idot' -> 'idot.mono' because neither has a Unicode value assigned in any of the cmap tables.
+```
