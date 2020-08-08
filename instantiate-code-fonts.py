@@ -33,8 +33,6 @@ import yaml
 
 # instances to split
 
-# instanceValues = {
-# }
 
 with open('./config.yaml') as file:
     instanceValues = yaml.load(file, Loader=yaml.FullLoader)
@@ -42,7 +40,6 @@ with open('./config.yaml') as file:
     print(instanceValues)
 
 # GET / SET NAME HELPER FUNCTIONS
-
 
 def getFontNameID(font, ID, platformID=3, platEncID=1):
     name = str(font["name"].getName(ID, platformID, platEncID))
@@ -74,9 +71,9 @@ def setFontNameID(font, ID, newName):
 
 oldName = "Recursive"
 
+fontPath = "./font-data/Recursive_VF_1.054.ttf"
 
 def splitFont(
-        fontPath,
         outputDirectory="fonts/rec_mono-for-code",
         newName="Rec Mono",
         ttc=False,
@@ -201,13 +198,6 @@ def splitFont(
             # remove dir with individual fontpaths
             shutil.rmtree(os.path.abspath(outputSubDir))
 
-    # Make zip of output, then put inside output directory
-    if zip:
-        shutil.make_archive(f"{outputDirectory}", "zip", outputDirectory)
-        shutil.move(
-            f"{outputDirectory}.zip",
-            f"{outputDirectory}/{outputDirectory.split('/')[-1]}.zip",
-        )
 
 
 if __name__ == "__main__":

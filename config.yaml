@@ -1,4 +1,5 @@
 # Use this file to configure your custom Rec Code font
+
 # MONO: 0 for Sans, 1 for Mono (or anything in-between)
 # CASL: 0 for Linear, 1 for Casual (or anything in-between)
 # wght: 300–1000 (realistically, about 400 for Regular & Italic and about 700 for Bold & Bold Italic)
@@ -35,7 +36,7 @@ Bold Italic:
   slnt: -10
   CRSV: 1
 
-# Comment/uncomment to select stylistic options. See README for details.
+# Include font features to freeze in stylistic options. See README for details.
 Options:
   dlig # code ligatures
   ss02 # single-story g
