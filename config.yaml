@@ -1,12 +1,15 @@
 # Use this file to configure your custom Rec Code font
 
+# The name you want after "Rec Mono" in your custom fonts
+Family Name: Custom 
+
+# The variable axis values for the Regular, Italic, Bold, & Bold Italic fonts
+
 # MONO: 0 for Sans, 1 for Mono (or anything in-between)
 # CASL: 0 for Linear, 1 for Casual (or anything in-between)
 # wght: 300–1000 (realistically, about 400 for Regular & Italic and about 700 for Bold & Bold Italic)
 # slnt: 0 to -15 (negative numbers are more slanted, and approximately equal to degrees of slope)
 # CRSV: 0 (0 for roman, 1 for cursive)
-
-Family Name: Custom
 
 Fonts:
 
@@ -38,7 +41,10 @@ Fonts:
     slnt: -10
     CRSV: 1
 
-# Include font features to freeze in stylistic options. See README for details.
+# Freeze in code ligatures? True or False
+Code Ligatures: True
+
+# Include font features to freeze in stylistic options. Copy them below to use. See README for details.
 # ss01 # single-story a
 # ss02 # single-story g
 # ss03 # simplified f
@@ -52,12 +58,10 @@ Fonts:
 # ss10 # dotted 0
 # ss11 # simplified 1
 
+# (Keep the hyphen before each list item)
 Features:
 - ss02 # single-story g
 - ss03 # simplified f
 - ss05 # simplified l
 - ss07 # serifless L and Z
 - ss09 # simplified 6 and 9
-
-# Freeze in code ligatures? True or False
-Code Ligatures: True
