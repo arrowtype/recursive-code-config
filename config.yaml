@@ -8,39 +8,53 @@
 
 Family Name: Custom
 
-Regular:
-  MONO: 1
-  CASL: 0
-  wght: 450
-  slnt: 0
-  CRSV: 0
+Fonts:
 
-Italic:
-  MONO: 1
-  CASL: 1
-  wght: 450
-  slnt: -10
-  CRSV: 1
+  Regular:
+    MONO: 1
+    CASL: 0
+    wght: 425
+    slnt: 0
+    CRSV: 0
 
-Bold:
-  MONO: 1
-  CASL: 0
-  wght: 700
-  slnt: 0
-  CRSV: 0
+  Italic:
+    MONO: 1
+    CASL: 1
+    wght: 425
+    slnt: -10
+    CRSV: 0
 
-Bold Italic:
-  MONO: 1
-  CASL: 1
-  wght: 700
-  slnt: -10
-  CRSV: 1
+  Bold:
+    MONO: 1
+    CASL: 0
+    wght: 700
+    slnt: 0
+    CRSV: 0
+
+  Bold Italic:
+    MONO: 1
+    CASL: 1
+    wght: 700
+    slnt: -10
+    CRSV: 1
 
 # Include font features to freeze in stylistic options. See README for details.
+# ss01 # single-story a
+# ss02 # single-story g
+# ss03 # simplified f
+# ss04 # simplified i
+# ss05 # simplified l
+# ss06 # simplified r
+# ss07 # serifless L and Z
+# ss08 # simplified @
+# ss09 # simplified 6 and 9
+# ss10 # dotted 0
+# ss11 # simplified 1
+
 Options:
-  dlig # code ligatures
-  ss02 # single-story g
-  ss03 # simplified f
-  ss05 # simplified l
-  ss07 # serifless L and Z
-  ss09 # simplified 6 and 9
+  dlig
+  ss02
+  ss03
+  ss05
+  ss07
+  ss09

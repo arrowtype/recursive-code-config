@@ -1,23 +1,6 @@
 """
-    A script to generate Recursive fonts for code with:
-    - An abbreviated family name to avoid macOS style-linking bug
-        - Rec Mono
-    - A reduced italic slant (probably -10 degrees)
-    - The following static instances:
-        - Linear
-        - Linear Italic
-        - Linear Bold
-        - Linear Bold Italic
-        - Casual
-        - Casual Italic
-        - Casual Bold
-        - Casual Bold Italic
-
-    USAGE:
-
-    python <path>/instantiate-code-fonts.py <recursive-VF>
-
-    NOTE: assumes it will act on the Recursive variable font as of e84015de.
+    A script to generate Recursive fonts for code with Regular, Italic, Bold, & Bold Italic,
+    as configured in config.yaml. See Readme for usage instructions.
 """
 
 import os
@@ -27,17 +10,12 @@ from fontTools.varLib import instancer
 from opentype_feature_freezer import cli as pyftfeatfreeze
 import subprocess
 import shutil
-import fire
 from dlig2calt import dlig2calt
 import yaml
 
-# instances to split
-
-
+# read yaml config
 with open('./config.yaml') as file:
-    instanceValues = yaml.load(file, Loader=yaml.FullLoader)
-
-    print(instanceValues)
+    fontOptions = yaml.load(file, Loader=yaml.FullLoader)
 
 # GET / SET NAME HELPER FUNCTIONS
 
@@ -74,7 +52,7 @@ oldName = "Recursive"
 fontPath = "./font-data/Recursive_VF_1.054.ttf"
 
 def splitFont(
-        outputDirectory="fonts/rec_mono-for-code",
+        outputDirectory=f"RecMono-{fontOptions['Family Name']}",
         newName="Rec Mono",
         ttc=False,
         zip=False,
@@ -85,120 +63,120 @@ def splitFont(
 
     fontFileName = os.path.basename(fontPath)
 
-    for package in instanceValues:
-        outputSubDir = f"{outputDirectory}/{package}"
 
-        for instance in instanceValues[package]:
+    outputSubDir = f"{outputDirectory}"
 
-            print(instance)
+    for instance in fontOptions["Fonts"]:
 
-            instanceFont = instancer.instantiateVariableFont(
-                varfont,
-                {
-                    "wght": instanceValues[package][instance]["wght"],
-                    "CASL": instanceValues[package][instance]["CASL"],
-                    "MONO": instanceValues[package][instance]["MONO"],
-                    "slnt": instanceValues[package][instance]["slnt"],
-                    "CRSV": instanceValues[package][instance]["CRSV"],
-                },
-            )
+        print(instance)
 
-            # UPDATE NAME ID 6, postscript name
-            currentPsName = getFontNameID(instanceFont, 6)
-            newPsName = (currentPsName.replace("Sans", "").replace(
-                oldName,
-                newName.replace(" ", "")).replace("LinearLight",
-                                                  instance.replace(" ", "")))
-            setFontNameID(instanceFont, 6, newPsName)
+        instanceFont = instancer.instantiateVariableFont(
+            varfont,
+            {
+                "wght": fontOptions["Fonts"][instance]["wght"],
+                "CASL": fontOptions["Fonts"][instance]["CASL"],
+                "MONO": fontOptions["Fonts"][instance]["MONO"],
+                "slnt": fontOptions["Fonts"][instance]["slnt"],
+                "CRSV": fontOptions["Fonts"][instance]["CRSV"],
+            },
+        )
 
-            # UPDATE NAME ID 4, full font name
-            currentFullName = getFontNameID(instanceFont, 4)
-            newFullName = (currentFullName.replace("Sans", "").replace(
-                oldName, newName).replace(" Linear Light", instance))
-            setFontNameID(instanceFont, 4, newFullName)
+        # UPDATE NAME ID 6, postscript name
+        currentPsName = getFontNameID(instanceFont, 6)
+        newPsName = (currentPsName.replace("Sans", f"{fontOptions['Family Name']}").replace(
+            oldName,
+            newName.replace(" ", "")).replace("LinearLight",
+                                                instance.replace(" ", "")))
+        setFontNameID(instanceFont, 6, newPsName)
 
-            # UPDATE NAME ID 3, unique font ID
-            currentUniqueName = getFontNameID(instanceFont, 3)
-            newUniqueName = (currentUniqueName.replace("Sans", "").replace(
-                oldName,
-                newName.replace(" ", "")).replace("LinearLight",
-                                                  instance.replace(" ", "")))
-            setFontNameID(instanceFont, 3, newUniqueName)
+        # UPDATE NAME ID 4, full font name
+        currentFullName = getFontNameID(instanceFont, 4)
+        newFullName = (currentFullName.replace("Sans", "").replace(
+            oldName, newName).replace(" Linear Light", fontOptions["Family Name"]))
+        setFontNameID(instanceFont, 4, newFullName)
 
-            # ADD name 2, style linking name
-            newStyleLinkingName = instanceValues[package][instance]["style"]
-            setFontNameID(instanceFont, 2, newStyleLinkingName)
-            setFontNameID(instanceFont, 17, newStyleLinkingName)
+        # UPDATE NAME ID 3, unique font ID
+        currentUniqueName = getFontNameID(instanceFont, 3)
+        newUniqueName = (currentUniqueName.replace("Sans", f"{fontOptions['Family Name']}").replace(
+            oldName,
+            newName.replace(" ", "")).replace("LinearLight",
+                                                instance.replace(" ", "")))
+        setFontNameID(instanceFont, 3, newUniqueName)
 
-            # UPDATE NAME ID 1, unique font ID
-            currentFamName = getFontNameID(instanceFont, 1)
-            newFamName = (currentFamName.replace(" Sans", "").replace(oldName, newName).replace(
-                "Linear Light",
-                instance.replace(" " + instanceValues[package][instance]["style"], ""),
-            ))
-            setFontNameID(instanceFont, 1, newFamName)
-            setFontNameID(instanceFont, 16, newFamName)
+        # ADD name 2, style linking name
+        newStyleLinkingName = instance
+        setFontNameID(instanceFont, 2, newStyleLinkingName)
+        setFontNameID(instanceFont, 17, newStyleLinkingName)
 
-            newFileName = fontFileName.replace(oldName, newName.replace(
-                " ", "")).replace("_VF_",
-                                  "-" + instance.replace(" ", "") + "-")
+        # UPDATE NAME ID 1, unique font ID
+        currentFamName = getFontNameID(instanceFont, 1)
+        newFamName = (currentFamName.replace(" Sans", "").replace(oldName, newName).replace(
+            "Linear Light",
+            fontOptions["Family Name"].replace(" " + fontOptions["Family Name"], ""),
+        ))
+        setFontNameID(instanceFont, 1, newFamName)
+        setFontNameID(instanceFont, 16, newFamName)
 
-            # make dir for new fonts
-            pathlib.Path(outputSubDir).mkdir(parents=True, exist_ok=True)
+        newFileName = fontFileName.replace(oldName, newName.replace(
+            " ", "")).replace("_VF_",
+                                "-" + instance.replace(" ", "") + "-")
 
-            # -------------------------------------------------------
-            # OpenType Table fixes
+        # make dir for new fonts
+        pathlib.Path(outputSubDir).mkdir(parents=True, exist_ok=True)
 
-            # drop STAT table to allow RIBBI style naming & linking on Windows
-            del instanceFont["STAT"]
+        # -------------------------------------------------------
+        # OpenType Table fixes
 
-            # In the post table, isFixedPitched flag must be set in the code fonts
-            instanceFont['post'].isFixedPitch = 1
+        # drop STAT table to allow RIBBI style naming & linking on Windows
+        del instanceFont["STAT"]
 
-            # In the OS/2 table Panose bProportion must be set to 9
-            instanceFont["OS/2"].panose.bProportion = 9
+        # In the post table, isFixedPitched flag must be set in the code fonts
+        instanceFont['post'].isFixedPitch = 1
 
-            # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
-            instanceFont["OS/2"].xAvgCharWidth = 600
+        # In the OS/2 table Panose bProportion must be set to 9
+        instanceFont["OS/2"].panose.bProportion = 9
 
-            # -------------------------------------------------------
-            # save instance font
+        # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
+        instanceFont["OS/2"].xAvgCharWidth = 600
 
-            outputPath = f"{outputSubDir}/{newFileName}"
+        # -------------------------------------------------------
+        # save instance font
 
-            # save font
-            instanceFont.save(outputPath)
+        outputPath = f"{outputSubDir}/{newFileName}"
 
-            # -------------------------------------------------------
-            # Code font special stuff in post processing
+        # save font
+        instanceFont.save(outputPath)
 
-            # freeze in rvrn features with pyftfeatfreeze: serifless 'f', unambiguous 'l', '6', '9'
-            pyftfeatfreeze.main(["--features=rvrn,ss03,ss05,ss07,ss09", outputPath, outputPath])
+        # -------------------------------------------------------
+        # Code font special stuff in post processing
 
-            # swap dlig2calt to make code ligatures work in old code editor apps
-            dlig2calt(outputPath, inplace=True)
+        # freeze in rvrn features with pyftfeatfreeze: serifless 'f', unambiguous 'l', '6', '9'
+        pyftfeatfreeze.main(["--features=rvrn,ss03,ss05,ss07,ss09", outputPath, outputPath])
 
-        # -----------------------------------------------------------
-        # make TTC (truetype collection) of fonts – doesn't currently work on Mac very well :(
+        # swap dlig2calt to make code ligatures work in old code editor apps
+        dlig2calt(outputPath, inplace=True)
 
-        if ttc:
-            # make list of fonts in subdir
-            fontPaths = [
-                os.path.abspath(outputSubDir + "/" + x)
-                for x in os.listdir(outputSubDir)
-            ]
+    # -----------------------------------------------------------
+    # make TTC (truetype collection) of fonts – doesn't currently work on Mac very well :(
 
-            # form command
-            command = f"otf2otc {' '.join(fontPaths)} -o {outputDirectory}/RecMono-{package}.ttc"
-            print("▶", command, "\n")
+    if ttc:
+        # make list of fonts in subdir
+        fontPaths = [
+            os.path.abspath(outputSubDir + "/" + x)
+            for x in os.listdir(outputSubDir)
+        ]
 
-            # run command in shell
-            subprocess.run(command.split(), check=True, text=True)
+        # form command
+        command = f"otf2otc {' '.join(fontPaths)} -o {outputDirectory}/RecMono-{package}.ttc"
+        print("▶", command, "\n")
 
-            # remove dir with individual fontpaths
-            shutil.rmtree(os.path.abspath(outputSubDir))
+        # run command in shell
+        subprocess.run(command.split(), check=True, text=True)
 
+        # remove dir with individual fontpaths
+        shutil.rmtree(os.path.abspath(outputSubDir))
 
+splitFont()
 
-if __name__ == "__main__":
-    fire.Fire(splitFont)
+# if __name__ == "__main__":
+#     fire.Fire(splitFont)

@@ -74,7 +74,7 @@ def dlig2calt(fontPath, inplace=False):
 
 
     # add new feature code, using calt rather than dlig
-    builder.addOpenTypeFeatures(font,"src/features/features/calt-generated--code_fonts_only.fea")
+    builder.addOpenTypeFeatures(font,"font-data/features/calt-generated--code_fonts_only.fea")
 
 
     # save font

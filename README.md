@@ -57,3 +57,8 @@ Options:
 ```bash
 python3 instantiate-code-fonts.py
 ```
+
+## To do
+
+- [ ] let config options control font features
+- [ ] improve output file names
