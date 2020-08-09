@@ -1,9 +1,32 @@
 # Use this file to configure your custom Rec Code font
 
-# The name you want after "Rec Mono" in your custom fonts
+#                                                                              
+#                                             /$$$$$$     /$$                  
+#                                            /$$–––’     ’––’              $$  
+#    /$$$$$$$    /$$$$$$$    /$$ $$$$$    /$$$$$$$$$   /$$$$$      /$$$$$$$    
+#   /$$_____/   /$$___  $$  | $$$__  $$  |___ $$ _/   |___ $$     /$$     $$   
+#  | $$        | $$   | $$  | $$   \ $$     | $$         | $$    \  $$$$$$$    
+#  | $$        | $$   | $$  | $$   | $$     | $$         | $$     \  $$        
+#  |  $$$$$$$  \  $$$$$$$   | $$   | $$   /$$$$$$$$$  /$$$$$$$$$  / $$$$$$$$   
+#   \_______/   \______/    |__/   |__/  |________/  |________/  | $$    \ $$  
+#                                                                \  $$$$$$$$   
+#                                                                 \______/     
+#                                                                              
+
+# -----------------------------------------------------------------------------
+# Family Name
+
+# The name you want after "Rec Mono" in your custom fonts. 
+# Example: "Custom" will yield the family "Rec Mono Custom". 
+# Keep under 13 characters in length to avoid potential OS bugs.
+
 Family Name: Custom 
 
-# The variable axis values for the Regular, Italic, Bold, & Bold Italic fonts
+# -----------------------------------------------------------------------------
+# Font Styles
+
+# The variable axis values for the Regular, Italic, Bold, & Bold Italic fonts.
+# See https://recursive.design for more information on these.
 
 # MONO: 0 for Sans, 1 for Mono (or anything in-between)
 # CASL: 0 for Linear, 1 for Casual (or anything in-between)
@@ -41,6 +64,9 @@ Fonts:
     slnt: -10
     CRSV: 1
 
+# -----------------------------------------------------------------------------
+# Font Features
+
 # Freeze in code ligatures? True or False
 Code Ligatures: True
 
@@ -53,7 +79,7 @@ Code Ligatures: True
 # ss06 # simplified r
 # ss07 # serifless L and Z
 # ss07 # serifless L and Z
-# ss08 # simplified @
+# ss08 # simplified $
 # ss09 # simplified 6 and 9
 # ss10 # dotted 0
 # ss11 # simplified 1
@@ -65,3 +91,5 @@ Features:
 - ss05 # simplified l
 - ss07 # serifless L and Z
 - ss09 # simplified 6 and 9
+
+# That’s it! See README for next steps.
