@@ -7,5 +7,8 @@ opentype-feature-freezer
 # to remove components in code ligatures for improved rendering
 skia-pathops
 
+# alternative to argparse, used to easily fire the script
+fire
+
 # to parse YAML config file
 pyyaml
