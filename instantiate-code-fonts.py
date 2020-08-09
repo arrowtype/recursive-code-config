@@ -81,24 +81,24 @@ def splitFont(
 
         # UPDATE NAME ID 6, postscript name
         currentPsName = getFontNameID(instanceFont, 6)
-        newPsName = (currentPsName.replace("Sans", f"{fontOptions['Family Name']}").replace(
-            oldName,
-            newName.replace(" ", "")).replace("LinearLight",
-                                                instance.replace(" ", "")))
+        newPsName = (currentPsName\
+            .replace("Sans", "")\
+            .replace(oldName,newName.replace(" ", "") + fontOptions['Family Name'].replace(" ",""))\
+            .replace("LinearLight", instance.replace(" ", "")))
         setFontNameID(instanceFont, 6, newPsName)
 
         # UPDATE NAME ID 4, full font name
         currentFullName = getFontNameID(instanceFont, 4)
-        newFullName = (currentFullName.replace("Sans", "").replace(
-            oldName, newName).replace(" Linear Light", fontOptions["Family Name"]))
+        newFullName = (currentFullName\
+            .replace("Sans", "")\
+            .replace(oldName, newName + " " + fontOptions['Family Name'])\
+            .replace(" Linear Light", instance))\
+            .replace(" Regular", "")
         setFontNameID(instanceFont, 4, newFullName)
 
         # UPDATE NAME ID 3, unique font ID
         currentUniqueName = getFontNameID(instanceFont, 3)
-        newUniqueName = (currentUniqueName.replace("Sans", f"{fontOptions['Family Name']}").replace(
-            oldName,
-            newName.replace(" ", "")).replace("LinearLight",
-                                                instance.replace(" ", "")))
+        newUniqueName = (currentUniqueName.replace(currentPsName, newPsName))
         setFontNameID(instanceFont, 3, newUniqueName)
 
         # ADD name 2, style linking name
@@ -106,18 +106,15 @@ def splitFont(
         setFontNameID(instanceFont, 2, newStyleLinkingName)
         setFontNameID(instanceFont, 17, newStyleLinkingName)
 
-        # UPDATE NAME ID 1, unique font ID
+        # UPDATE NAME ID 1, Font Family name
         currentFamName = getFontNameID(instanceFont, 1)
-        newFamName = (currentFamName.replace(" Sans", "").replace(oldName, newName).replace(
-            "Linear Light",
-            fontOptions["Family Name"].replace(" " + fontOptions["Family Name"], ""),
-        ))
+        newFamName = (newFullName.replace(f" {instance}", ""))
         setFontNameID(instanceFont, 1, newFamName)
         setFontNameID(instanceFont, 16, newFamName)
 
-        newFileName = fontFileName.replace(oldName, newName.replace(
-            " ", "")).replace("_VF_",
-                                "-" + instance.replace(" ", "") + "-")
+        newFileName = fontFileName\
+            .replace(oldName, (newName + fontOptions['Family Name']).replace(" ", ""))\
+            .replace("_VF_", "-" + instance.replace(" ", "") + "-")
 
         # make dir for new fonts
         pathlib.Path(outputSubDir).mkdir(parents=True, exist_ok=True)
@@ -136,6 +133,20 @@ def splitFont(
 
         # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
         instanceFont["OS/2"].xAvgCharWidth = 600
+
+        if instance == "Italic":
+            instanceFont['OS/2'].fsSelection = 0b1
+            instanceFont["head"].macStyle = 0b10
+            # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
+            instanceFont["OS/2"].panose.bLetterForm = 11
+
+        if instance == "Bold":
+            instanceFont['OS/2'].fsSelection = 0b100000
+            instanceFont["head"].macStyle = 0b1
+
+        if instance == "Bold Italic":
+            instanceFont['OS/2'].fsSelection = 0b100001
+            instanceFont["head"].macStyle = 0b11
 
         # -------------------------------------------------------
         # save instance font
