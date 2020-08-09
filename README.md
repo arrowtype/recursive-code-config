@@ -57,13 +57,15 @@ Then, specify whether you want code ligatures on by default. Mark `True` for yes
 Finally, you can copy in the font feature options you want:
 
 ```yaml
-Options:
+# These options only have an affect at CRSV<=0.5 (roman/normal styles)
 - ss01 # single-story a
 - ss02 # single-story g
 - ss03 # simplified f
 - ss04 # simplified i
 - ss05 # simplified l
 - ss06 # simplified r
+
+# These options affect both Roman & Cursive styles
 - ss07 # serifless L and Z
 - ss08 # simplified @
 - ss09 # simplified 6 and 9

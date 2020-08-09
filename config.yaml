@@ -32,7 +32,7 @@ Family Name: Custom
 # CASL: 0 for Linear, 1 for Casual (or anything in-between)
 # wght: 300–1000 (realistically, about 400 for Regular & Italic and about 700 for Bold & Bold Italic)
 # slnt: 0 to -15 (negative numbers are more slanted, and approximately equal to degrees of slope)
-# CRSV: 0 (0 for roman, 1 for cursive)
+# CRSV: 0 (0 for Roman, 1 for Cursive)
 
 Fonts:
 
@@ -53,14 +53,14 @@ Fonts:
   Bold:
     MONO: 1
     CASL: 0
-    wght: 700
+    wght: 750
     slnt: 0
     CRSV: 0
 
   Bold Italic:
     MONO: 1
     CASL: 1
-    wght: 700
+    wght: 750
     slnt: -10
     CRSV: 1
 
@@ -70,16 +70,20 @@ Fonts:
 # Freeze in code ligatures? True or False
 Code Ligatures: True
 
-# Include font features to freeze in stylistic options. Copy them below to use. See README for details.
+# Include font features to freeze in stylistic options. Copy them below to use. 
+# See README for details.
+
+# These options only have an affect at CRSV<=0.5 (Roman/normal styles)
 # ss01 # single-story a
 # ss02 # single-story g
 # ss03 # simplified f
 # ss04 # simplified i
 # ss05 # simplified l
 # ss06 # simplified r
+
+# These options affect both Roman & Cursive styles
 # ss07 # serifless L and Z
-# ss07 # serifless L and Z
-# ss08 # simplified $
+# ss08 # simplified @
 # ss09 # simplified 6 and 9
 # ss10 # dotted 0
 # ss11 # simplified 1
