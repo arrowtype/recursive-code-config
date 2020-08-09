@@ -79,7 +79,7 @@ Options:
 Build the fonts by running the main Python script in the project:
 
 ```bash
-python3 instantiate-code-fonts.py
+python3 scripts/instantiate-code-fonts.py
 ```
 
 It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).

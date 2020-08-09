@@ -1,6 +1,10 @@
 """
     A script to generate Recursive fonts for code with Regular, Italic, Bold, & Bold Italic,
     as configured in config.yaml. See Readme for usage instructions.
+
+    Run from the directory above, e.g.
+
+    python3 scripts/instantiate-code-fonts.py
 """
 
 import os
@@ -52,7 +56,7 @@ oldName = "Recursive"
 fontPath = "./font-data/Recursive_VF_1.054.ttf"
 
 def splitFont(
-        outputDirectory=f"RecMono-{fontOptions['Family Name']}",
+        outputDirectory=f"RecMono{fontOptions['Family Name']}",
         newName="Rec Mono",
 ):
 
@@ -62,7 +66,7 @@ def splitFont(
     fontFileName = os.path.basename(fontPath)
 
 
-    outputSubDir = f"{outputDirectory}"
+    outputSubDir = f"fonts/{outputDirectory}"
 
     for instance in fontOptions["Fonts"]:
 
