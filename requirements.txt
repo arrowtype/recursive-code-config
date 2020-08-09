@@ -6,3 +6,6 @@ opentype-feature-freezer
 
 # to remove components in code ligatures for improved rendering
 skia-pathops
+
+# to parse YAML config file
+pyyaml

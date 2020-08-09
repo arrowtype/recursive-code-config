@@ -7,16 +7,8 @@ from fontTools import ttLib
 from fontTools.feaLib import builder
 from fontTools.pens.recordingPen import DecomposingRecordingPen
 from fontTools.pens.ttGlyphPen import TTGlyphPen
-
-import fire # alternative to argparse, used to easily fire the script
-
-try:
-    import pathops
-except ImportError:
-    sys.exit(
-        "This script requires the skia-pathops module. "
-        "`pip install skia-pathops` and then retry."
-    )
+from argparse import ArgumentParser
+import pathops
 
 def decomposeAndRemoveOverlap(font, glyphName):
 
@@ -87,5 +79,14 @@ def dlig2calt(fontPath, inplace=False):
         print("Saved font with feature 'dlig' changed to 'calt' at ", newPath)
 
 
+def main():
+  parser = ArgumentParser(description=description)
+  parser.add_argument('font', nargs=1)
+  parser.add_argument('--inplace', action='store_false')
+  args = parser.parse_args()
+
+  dlig2calt(args.font, args.inplace)
+
+
 if __name__ == '__main__':
-    fire.Fire(dlig2calt)
+    main()
