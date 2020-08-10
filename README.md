@@ -1,9 +1,5 @@
 # Customize Recursive for Code
 
-You can get premade Recursive fonts for Desktop, Web, & Code at https://github.com/arrowtype/recursive/releases/latest.
-
-But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
-
 ```
 #                                             /$$$$$$     /$$                  
 #                                            /$$    /    /  /             $$$  
@@ -17,7 +13,9 @@ But, if you want to customize your own build of Recursive for Code, you can run 
 #                                                                 \_______/    
 ```
 
-If you just want a code font without custom configuration, download and use the pre-configured Code fonts in [the latest Recursive release](https://github.com/arrowtype/recursive/releases/latest).
+You can get premade Recursive fonts for Desktop, Web, & Code at https://github.com/arrowtype/recursive/releases/latest. If you are just looking for the premade fonts for code, they are also in this repo.
+
+But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
 
 If you find issues in this customization workflow, please report them in this repo’s [Issues](https://github.com/arrowtype/recursive-code-config/issues).
 
