@@ -4,11 +4,11 @@ You can get premade Recursive fonts for Desktop, Web, & Code at https://github.c
 
 But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
 
-```bash
+```
 #                                             /$$$$$$     /$$                  
 #                                            /$$    /    /  /             $$$  
 #    /$$$$$$$    /$$$$$$$    /$$ $$$$$    /$$$$$$$$$   /$$$$$      /$$$$$$$ /  
-#   /$$_____/   /$$____ $$  | $$$___ $$  |___ $$__/   |___ $$     /$$     $$   
+#   /$$_____/   /$$____ $$  | $$$___ $$  |___ $$___/  |___ $$     /$$     $$   
 #  | $$        | $$   | $$  | $$   | $$     | $$         | $$    \  $$$$$$$    
 #  | $$        | $$   | $$  | $$   | $$     | $$         | $$     \  $$   /    
 #  \  $$$$$$$  \  $$$$$$$   | $$   | $$   /$$$$$$$$$  /$$$$$$$$$  / $$$$$$$$   
