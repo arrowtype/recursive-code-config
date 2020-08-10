@@ -4,7 +4,7 @@ You can get premade Recursive fonts for Desktop, Web, & Code at https://github.c
 
 But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
 
-```
+```bash
 #                                             /$$$$$$     /$$                  
 #                                            /$$    /    /  /             $$$  
 #    /$$$$$$$    /$$$$$$$    /$$ $$$$$    /$$$$$$$$$   /$$$$$      /$$$$$$$ /  
@@ -14,10 +14,10 @@ But, if you want to customize your own build of Recursive for Code, you can run 
 #  \  $$$$$$$  \  $$$$$$$   | $$   | $$   /$$$$$$$$$  /$$$$$$$$$  / $$$$$$$$   
 #   \_______/   \_______/   |__/   |__/  |_________/ |_________/ | $$      $$  
 #                                                                \  $$$$$$$$   
-#                                                                 \_______/     
+#                                                                 \_______/    
 ```
 
-Note: this is an experimental repo & mostly for entertainment. It’s not really an official part of the Recursive project; I just hope it’s fun & helpful to some people. If it’s not, sorry! Feel free to make a PR to improve it, or to just use the [pre-configured Code fonts](https://github.com/arrowtype/recursive/releases/latest).
+If you just want a code font without custom configuration, download and use the pre-configured Code fonts in [the latest Recursive release](https://github.com/arrowtype/recursive/releases/latest).
 
 If you find issues in this customization workflow, please report them in this repo’s [Issues](https://github.com/arrowtype/recursive-code-config/issues).
 
@@ -109,11 +109,4 @@ py scripts/instantiate-code-fonts.py premade-configs/duotone.yaml
 
 This argument may also be helpful if you wish to create multiple custom versions. To experiment, just duplicate the `config.yaml` with a new filename, change the `Family Name` option, and run the script pointing to that new config file.
 
-## Project to-dos
-
-- [ ] improve output file names with custom names
-- [ ] fix or surpress console warnings from feature freezer (example below)
-
-```console
-WARNING: [applySubstitutions] Cannot remap 'idot' -> 'idot.mono' because neither has a Unicode value assigned in any of the cmap tables.
-```
+Happy coding!
