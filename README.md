@@ -4,6 +4,19 @@ You can get premade Recursive fonts for Desktop, Web, & Code at https://github.c
 
 But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
 
+```
+#                                             /$$$$$$     /$$                  
+#                                            /$$––––’    ’––’             $$$  
+#    /$$$$$$$    /$$$$$$$    /$$ $$$$$    /$$$$$$$$$   /$$$$$      /$$$$$$$    
+#   /$$_____/   /$$____ $$  | $$$___ $$  |___ $$__/   |___ $$     /$$     $$   
+#  | $$        | $$   | $$  | $$   | $$     | $$         | $$    \  $$$$$$$    
+#  | $$        | $$   | $$  | $$   | $$     | $$         | $$     \  $$        
+#  |  $$$$$$$  \  $$$$$$$   | $$   | $$   /$$$$$$$$$  /$$$$$$$$$  / $$$$$$$$   
+#   \_______/   \_______/   |__/   |__/  |_________/ |_________/ | $$    \ $$  
+#                                                                \  $$$$$$$$   
+#                                                                 \_______/    
+```
+
 Note: this is an experimental repo & mostly for entertainment. It’s not really an official part of the Recursive project; I just hope it’s fun & helpful to some people. If it’s not, sorry! Feel free to make a PR to improve it, or to just use the [pre-configured Code fonts](https://github.com/arrowtype/recursive/releases/latest).
 
 If you find issues in this customization workflow, please report them in this repo’s [Issues](https://github.com/arrowtype/recursive-code-config/issues).
