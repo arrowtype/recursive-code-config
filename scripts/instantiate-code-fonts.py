@@ -16,9 +16,17 @@ import subprocess
 import shutil
 from dlig2calt import dlig2calt
 import yaml
+import sys
+
+
+# if you provide a custom config path, this picks it up
+try:
+    configPath = sys.argv[1]
+except IndexError:
+    configPath = './config.yaml'
 
 # read yaml config
-with open('./config.yaml') as file:
+with open(configPath) as file:
     fontOptions = yaml.load(file, Loader=yaml.FullLoader)
 
 # GET / SET NAME HELPER FUNCTIONS

@@ -86,6 +86,15 @@ python3 scripts/instantiate-code-fonts.py
 
 It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
 
+**Building with other config files**
+
+If you wish to build fonts with premade configurations (or reference these), just add their path as an argument:
+
+```bash
+py scripts/instantiate-code-fonts.py premade-configs/duotone.yaml
+```
+
+This argument may also be helpful if you wish to create multiple custom versions. To experiment, just duplicate the `config.yaml` with a new filename, change the `Family Name` option, and run the script pointing to that new config file.
 
 ## Project to-dos
 
