@@ -17,7 +17,10 @@ import shutil
 from dlig2calt import dlig2calt
 import yaml
 import sys
+import logging
 
+# prevents over-active warning logs
+logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
 
 # if you provide a custom config path, this picks it up
 try:
@@ -46,14 +49,14 @@ def setFontNameID(font, ID, newName):
     oldWinName = font["name"].getName(ID, *winIDs.values())
 
     if oldMacName != newName:
-        print(f"\n\t\t Mac name was '{oldMacName}'")
+        print(f"\t\t Mac name was '{oldMacName}'")
         font["name"].setName(newName, ID, *macIDs.values())
-        print(f"\n\t\t Mac name now '{newName}'")
+        print(f"\t\t Mac name now '{newName}'")
 
     if oldWinName != newName:
-        print(f"\n\t\t Win name was '{oldWinName}'")
+        print(f"\t\t Win name was '{oldWinName}'")
         font["name"].setName(newName, ID, *winIDs.values())
-        print(f"\n\t\t Win name now '{newName}'")
+        print(f"\t\t Win name now '{newName}'")
 
 
 # ----------------------------------------------
@@ -78,7 +81,7 @@ def splitFont(
 
     for instance in fontOptions["Fonts"]:
 
-        print(instance)
+        print("\n--------------------------------------------------------------------------------------\n" + instance)
 
         instanceFont = instancer.instantiateVariableFont(
             varfont,
