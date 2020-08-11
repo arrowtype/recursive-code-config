@@ -1,6 +1,10 @@
 """
     A script to generate Recursive fonts for code with Regular, Italic, Bold, & Bold Italic,
     as configured in config.yaml. See Readme for usage instructions.
+
+    Run from the directory above, e.g.
+
+    python3 scripts/instantiate-code-fonts.py
 """
 
 import os
@@ -12,9 +16,20 @@ import subprocess
 import shutil
 from dlig2calt import dlig2calt
 import yaml
+import sys
+import logging
+
+# prevents over-active warning logs
+logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
+
+# if you provide a custom config path, this picks it up
+try:
+    configPath = sys.argv[1]
+except IndexError:
+    configPath = './config.yaml'
 
 # read yaml config
-with open('./config.yaml') as file:
+with open(configPath) as file:
     fontOptions = yaml.load(file, Loader=yaml.FullLoader)
 
 # GET / SET NAME HELPER FUNCTIONS
@@ -34,14 +49,14 @@ def setFontNameID(font, ID, newName):
     oldWinName = font["name"].getName(ID, *winIDs.values())
 
     if oldMacName != newName:
-        print(f"\n\t\t Mac name was '{oldMacName}'")
+        print(f"\t\t Mac name was '{oldMacName}'")
         font["name"].setName(newName, ID, *macIDs.values())
-        print(f"\n\t\t Mac name now '{newName}'")
+        print(f"\t\t Mac name now '{newName}'")
 
     if oldWinName != newName:
-        print(f"\n\t\t Win name was '{oldWinName}'")
+        print(f"\t\t Win name was '{oldWinName}'")
         font["name"].setName(newName, ID, *winIDs.values())
-        print(f"\n\t\t Win name now '{newName}'")
+        print(f"\t\t Win name now '{newName}'")
 
 
 # ----------------------------------------------
@@ -52,7 +67,7 @@ oldName = "Recursive"
 fontPath = "./font-data/Recursive_VF_1.054.ttf"
 
 def splitFont(
-        outputDirectory=f"RecMono-{fontOptions['Family Name']}",
+        outputDirectory=f"RecMono{fontOptions['Family Name']}",
         newName="Rec Mono",
 ):
 
@@ -62,11 +77,11 @@ def splitFont(
     fontFileName = os.path.basename(fontPath)
 
 
-    outputSubDir = f"{outputDirectory}"
+    outputSubDir = f"fonts/{outputDirectory}"
 
     for instance in fontOptions["Fonts"]:
 
-        print(instance)
+        print("\n--------------------------------------------------------------------------------------\n" + instance)
 
         instanceFont = instancer.instantiateVariableFont(
             varfont,
@@ -81,24 +96,24 @@ def splitFont(
 
         # UPDATE NAME ID 6, postscript name
         currentPsName = getFontNameID(instanceFont, 6)
-        newPsName = (currentPsName.replace("Sans", f"{fontOptions['Family Name']}").replace(
-            oldName,
-            newName.replace(" ", "")).replace("LinearLight",
-                                                instance.replace(" ", "")))
+        newPsName = (currentPsName\
+            .replace("Sans", "")\
+            .replace(oldName,newName.replace(" ", "") + fontOptions['Family Name'].replace(" ",""))\
+            .replace("LinearLight", instance.replace(" ", "")))
         setFontNameID(instanceFont, 6, newPsName)
 
         # UPDATE NAME ID 4, full font name
         currentFullName = getFontNameID(instanceFont, 4)
-        newFullName = (currentFullName.replace("Sans", "").replace(
-            oldName, newName).replace(" Linear Light", fontOptions["Family Name"]))
+        newFullName = (currentFullName\
+            .replace("Sans", "")\
+            .replace(oldName, newName + " " + fontOptions['Family Name'])\
+            .replace(" Linear Light", instance))\
+            .replace(" Regular", "")
         setFontNameID(instanceFont, 4, newFullName)
 
         # UPDATE NAME ID 3, unique font ID
         currentUniqueName = getFontNameID(instanceFont, 3)
-        newUniqueName = (currentUniqueName.replace("Sans", f"{fontOptions['Family Name']}").replace(
-            oldName,
-            newName.replace(" ", "")).replace("LinearLight",
-                                                instance.replace(" ", "")))
+        newUniqueName = (currentUniqueName.replace(currentPsName, newPsName))
         setFontNameID(instanceFont, 3, newUniqueName)
 
         # ADD name 2, style linking name
@@ -106,18 +121,15 @@ def splitFont(
         setFontNameID(instanceFont, 2, newStyleLinkingName)
         setFontNameID(instanceFont, 17, newStyleLinkingName)
 
-        # UPDATE NAME ID 1, unique font ID
+        # UPDATE NAME ID 1, Font Family name
         currentFamName = getFontNameID(instanceFont, 1)
-        newFamName = (currentFamName.replace(" Sans", "").replace(oldName, newName).replace(
-            "Linear Light",
-            fontOptions["Family Name"].replace(" " + fontOptions["Family Name"], ""),
-        ))
+        newFamName = (newFullName.replace(f" {instance}", ""))
         setFontNameID(instanceFont, 1, newFamName)
         setFontNameID(instanceFont, 16, newFamName)
 
-        newFileName = fontFileName.replace(oldName, newName.replace(
-            " ", "")).replace("_VF_",
-                                "-" + instance.replace(" ", "") + "-")
+        newFileName = fontFileName\
+            .replace(oldName, (newName + fontOptions['Family Name']).replace(" ", ""))\
+            .replace("_VF_", "-" + instance.replace(" ", "") + "-")
 
         # make dir for new fonts
         pathlib.Path(outputSubDir).mkdir(parents=True, exist_ok=True)
@@ -136,6 +148,20 @@ def splitFont(
 
         # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
         instanceFont["OS/2"].xAvgCharWidth = 600
+
+        if instance == "Italic":
+            instanceFont['OS/2'].fsSelection = 0b1
+            instanceFont["head"].macStyle = 0b10
+            # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
+            instanceFont["OS/2"].panose.bLetterForm = 11
+
+        if instance == "Bold":
+            instanceFont['OS/2'].fsSelection = 0b100000
+            instanceFont["head"].macStyle = 0b1
+
+        if instance == "Bold Italic":
+            instanceFont['OS/2'].fsSelection = 0b100001
+            instanceFont["head"].macStyle = 0b11
 
         # -------------------------------------------------------
         # save instance font

@@ -1,10 +1,21 @@
 # Customize Recursive for Code
 
-You can get premade Recursive fonts for Desktop, Web, & Code at https://github.com/arrowtype/recursive/releases/latest.
+```
+#                                             /$$$$$$     /$$                  
+#                                            /$$    /    /  /             $$$  
+#    /$$$$$$$    /$$$$$$$    /$$ $$$$$    /$$$$$$$$$   /$$$$$      /$$$$$$$ /  
+#   /$$_____/   /$$____ $$  | $$$___ $$  |___ $$___/  |___ $$     /$$     $$   
+#  | $$        | $$   | $$  | $$   | $$     | $$         | $$    \  $$$$$$$    
+#  | $$        | $$   | $$  | $$   | $$     | $$         | $$     \  $$   /    
+#  \  $$$$$$$  \  $$$$$$$   | $$   | $$   /$$$$$$$$$  /$$$$$$$$$  / $$$$$$$$   
+#   \_______/   \_______/   |__/   |__/  |_________/ |_________/ | $$      $$  
+#                                                                \  $$$$$$$$   
+#                                                                 \_______/    
+```
+
+You can get premade Recursive fonts for Desktop, Web, & Code at https://github.com/arrowtype/recursive/releases/latest. If you are just looking for the premade fonts for code, they are also in this repo.
 
 But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
-
-Note: this is an experimental repo & mostly for entertainment. It’s not really an official part of the Recursive project; I just hope it’s fun & helpful to some people. If it’s not, sorry! Feel free to make a PR to improve it, or to just use the [pre-configured Code fonts](https://github.com/arrowtype/recursive/releases/latest).
 
 If you find issues in this customization workflow, please report them in this repo’s [Issues](https://github.com/arrowtype/recursive-code-config/issues).
 
@@ -57,13 +68,15 @@ Then, specify whether you want code ligatures on by default. Mark `True` for yes
 Finally, you can copy in the font feature options you want:
 
 ```yaml
-Options:
+# These options only have an affect at CRSV<=0.5 (roman/normal styles)
 - ss01 # single-story a
 - ss02 # single-story g
 - ss03 # simplified f
 - ss04 # simplified i
 - ss05 # simplified l
 - ss06 # simplified r
+
+# These options affect both Roman & Cursive styles
 - ss07 # serifless L and Z
 - ss08 # simplified @
 - ss09 # simplified 6 and 9
@@ -79,17 +92,19 @@ Options:
 Build the fonts by running the main Python script in the project:
 
 ```bash
-python3 instantiate-code-fonts.py
+python3 scripts/instantiate-code-fonts.py
 ```
 
 It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
 
+**Building with other config files**
 
-## Project to-dos
+If you wish to build fonts with premade configurations (or reference these), just add their path as an argument:
 
-- [ ] improve output file names with custom names
-- [ ] fix or surpress console warnings from feature freezer (example below)
-
-```console
-WARNING: [applySubstitutions] Cannot remap 'idot' -> 'idot.mono' because neither has a Unicode value assigned in any of the cmap tables.
+```bash
+py scripts/instantiate-code-fonts.py premade-configs/duotone.yaml
 ```
+
+This argument may also be helpful if you wish to create multiple custom versions. To experiment, just duplicate the `config.yaml` with a new filename, change the `Family Name` option, and run the script pointing to that new config file.
+
+Happy coding!
