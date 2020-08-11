@@ -42,7 +42,7 @@ Fonts:
     CRSV: 1
 
 # Freeze in code ligatures? True or False
-Code Ligatures: False
+Code Ligatures: True
 
 # Include font features to freeze in stylistic options. Copy them below to use. See README for details.
 # ss01 # single-story a
