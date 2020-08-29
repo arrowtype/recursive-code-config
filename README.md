@@ -92,6 +92,7 @@ Finally, you can copy in the font feature options you want:
 Build the fonts by running the main Python script in the project:
 
 ```bash
+source venv/bin/activate         # activate the virtual environment if you haven’t already
 python3 scripts/instantiate-code-fonts.py
 ```
 
