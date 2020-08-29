@@ -67,7 +67,7 @@ oldName = "Recursive"
 fontPath = "./font-data/Recursive_VF_1.062.ttf"
 
 def splitFont(
-        outputDirectory=f"RecMono{fontOptions['Family Name']}",
+        outputDirectory=f"RecMono{fontOptions['Family Name']}".replace(" ",""),
         newName="Rec Mono",
 ):
 
@@ -180,5 +180,7 @@ def splitFont(
         if fontOptions['Code Ligatures']:
             # swap dlig2calt to make code ligatures work in old code editor apps
             dlig2calt(outputPath, inplace=True)
+
+        print(f"\n→ Font saved to '{outputPath}'\n")
 
 splitFont()

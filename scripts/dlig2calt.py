@@ -72,7 +72,7 @@ def dlig2calt(fontPath, inplace=False):
     # save font
     if inplace:
         font.save(fontPath)
-        print("Saved font inplace with feature 'dlig' changed to 'calt'.")
+        print("\nCode ligatures are now on by default.\n")
     else:
         newPath = fontPath.replace('.ttf','.calt_ligs.ttf')
         font.save(newPath)
