@@ -71,6 +71,37 @@ def dlig2calt(fontPath, inplace=False):
                     # x = x - widthDiff
 
 
+            # glyfCoords = font['glyf'][glyphName].getCoordinates(font['glyf'])
+            # print(glyfCoords)
+            coords = font['glyf'][glyphName].coordinates
+            print(coords)
+
+            # font['glyf'][glyphName].
+            phantoms = font['glyf'].getPhantomPoints(glyphName, font)
+
+            print("widthDiff is ", widthDiff)
+
+            # adjustedCoords = [(x-widthDiff, y) for x, y in glyfCoords[0]]
+            adjustedCoords = [(x-widthDiff, y) for x, y in coords]
+            adjustedPhantoms = [(0,0), (600,0), phantoms[-2], phantoms[-1]]
+
+            print(adjustedCoords)
+
+            print(len(coords), len(adjustedCoords))
+
+            newCoords = adjustedCoords+adjustedPhantoms
+
+            print(newCoords)
+            font['glyf'].setCoordinates(glyphName, newCoords, font)
+
+            glyfCoords = font['glyf'][glyphName].getCoordinates(font['glyf'])
+            print(glyfCoords)
+
+            # import sys
+            # sys.exit("Stopping")
+
+
+
     # add new feature code, using calt rather than dlig
     builder.addOpenTypeFeatures(font,"font-data/features/calt-generated--code_fonts_only.fea")
 
