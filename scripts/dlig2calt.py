@@ -50,7 +50,7 @@ def dlig2calt(fontPath, inplace=False):
 
     # update code ligature widths to be single units with left overhang
     for glyphName in font.getGlyphNames():
-        if font['hmtx'][glyphName][0] > 600:
+        if font['hmtx'][glyphName][0] > unitWidth:
 
             decomposeAndRemoveOverlap(font, glyphName)
 
@@ -59,10 +59,16 @@ def dlig2calt(fontPath, inplace=False):
 
             # set width to space (e.g. 600), then offset left side to be negative
             # lsb = oldLSB - oldWidth
-            oldLSB = font['hmtx'][glyphName][1]
             oldWidth = font['hmtx'][glyphName][0]
-            newLSB = oldLSB - (oldWidth - unitWidth)
+            oldLSB = font['hmtx'][glyphName][1]
+            widthDiff = oldWidth - unitWidth
+            newLSB = oldLSB - widthDiff
+            print(glyphName, (unitWidth, newLSB))
             font['hmtx'].__setitem__(glyphName, (unitWidth, newLSB))
+
+            # get glyphName in glyf table, then
+                # for xMin, xMax, and x value in glyf table, 
+                    # x = x - widthDiff
 
 
     # add new feature code, using calt rather than dlig
@@ -80,12 +86,13 @@ def dlig2calt(fontPath, inplace=False):
 
 
 def main():
+  description = "Change dlig features to calt features."
   parser = ArgumentParser(description=description)
   parser.add_argument('font', nargs=1)
-  parser.add_argument('--inplace', action='store_false')
+  parser.add_argument('--inplace', action='store_true')
   args = parser.parse_args()
 
-  dlig2calt(args.font, args.inplace)
+  dlig2calt(args.font[0], args.inplace)
 
 
 if __name__ == '__main__':
