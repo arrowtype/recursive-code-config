@@ -42,10 +42,8 @@ def dlig2calt(fontPath, inplace=False):
     unitWidth = font['hmtx']['space'][0] # 600 for most monospace fonts w/ UPM=1000
 
     # make "LIG" glyph
-    # __setitem__(self, glyphName, glyph)
     font['glyf'].__setitem__('LIG', font['glyf']['space'])
 
-    # __setitem__(self, glyphName, advance_sb_pair)
     font['hmtx'].__setitem__('LIG', font['hmtx']['space'])
 
     # update code ligature widths to be single units with left overhang
@@ -54,52 +52,22 @@ def dlig2calt(fontPath, inplace=False):
 
             decomposeAndRemoveOverlap(font, glyphName)
 
-            # add to dict for later?
-            # codeLigs[glyphName] = font['hmtx'][glyphName][0]
-
             # set width to space (e.g. 600), then offset left side to be negative
-            # lsb = oldLSB - oldWidth
             oldWidth = font['hmtx'][glyphName][0]
             oldLSB = font['hmtx'][glyphName][1]
             widthDiff = oldWidth - unitWidth
             newLSB = oldLSB - widthDiff
-            print(glyphName, (unitWidth, newLSB))
             font['hmtx'].__setitem__(glyphName, (unitWidth, newLSB))
 
-            # get glyphName in glyf table, then
-                # for xMin, xMax, and x value in glyf table, 
-                    # x = x - widthDiff
-
-
-            # glyfCoords = font['glyf'][glyphName].getCoordinates(font['glyf'])
-            # print(glyfCoords)
+            # Adjust coordinates in glyf table
             coords = font['glyf'][glyphName].coordinates
-            print(coords)
-
-            # font['glyf'][glyphName].
             phantoms = font['glyf'].getPhantomPoints(glyphName, font)
 
-            print("widthDiff is ", widthDiff)
-
-            # adjustedCoords = [(x-widthDiff, y) for x, y in glyfCoords[0]]
             adjustedCoords = [(x-widthDiff, y) for x, y in coords]
             adjustedPhantoms = [(0,0), (600,0), phantoms[-2], phantoms[-1]]
 
-            print(adjustedCoords)
-
-            print(len(coords), len(adjustedCoords))
-
             newCoords = adjustedCoords+adjustedPhantoms
-
-            print(newCoords)
             font['glyf'].setCoordinates(glyphName, newCoords, font)
-
-            glyfCoords = font['glyf'][glyphName].getCoordinates(font['glyf'])
-            print(glyfCoords)
-
-            # import sys
-            # sys.exit("Stopping")
-
 
 
     # add new feature code, using calt rather than dlig
