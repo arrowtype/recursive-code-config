@@ -4,7 +4,7 @@
 
 set -e
 
-version=1.062
+version=1.064
 release=ArrowType-RecMonoCode-v$version
 
 rm -rf ./fonts
@@ -18,3 +18,5 @@ done
 cp -r ./fonts ./$release
 
 zip $release.zip -r $release -x .DS_*
+
+rm -rf $release
