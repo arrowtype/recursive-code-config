@@ -64,7 +64,7 @@ def setFontNameID(font, ID, newName):
 
 oldName = "Recursive"
 
-fontPath = "./font-data/Recursive_VF_1.062.ttf"
+fontPath = "./font-data/Recursive_VF_1.064.ttf"
 
 def splitFont(
         outputDirectory=f"RecMono{fontOptions['Family Name']}".replace(" ",""),
