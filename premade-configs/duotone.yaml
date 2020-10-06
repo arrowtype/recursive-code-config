@@ -19,14 +19,14 @@ Fonts:
     CRSV: 1
   Bold:
     MONO: 1
-    CASL: 0
-    wght: 700
+    CASL: 1
+    wght: 750
     slnt: 0
     CRSV: 0
   Bold Italic:
     MONO: 1
     CASL: 1
-    wght: 700
+    wght: 750
     slnt: -10
     CRSV: 1
 
