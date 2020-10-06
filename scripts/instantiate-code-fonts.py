@@ -14,10 +14,14 @@ from fontTools.varLib import instancer
 from opentype_feature_freezer import cli as pyftfeatfreeze
 import subprocess
 import shutil
-from dlig2calt import dlig2calt
 import yaml
 import sys
 import logging
+from dlig2calt import dlig2calt
+from mergePowerlineFont import mergePowerlineFont
+
+# UPDATE FOR NEWER SOURCE VF
+fontPath = "./font-data/Recursive_VF_1.066.ttf"
 
 # prevents over-active warning logs
 logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
@@ -63,8 +67,6 @@ def setFontNameID(font, ID, newName):
 # MAIN FUNCTION
 
 oldName = "Recursive"
-
-fontPath = "./font-data/Recursive_VF_1.064.ttf"
 
 def splitFont(
         outputDirectory=f"RecMono{fontOptions['Family Name']}".replace(" ",""),
@@ -180,6 +182,16 @@ def splitFont(
         if fontOptions['Code Ligatures']:
             # swap dlig2calt to make code ligatures work in old code editor apps
             dlig2calt(outputPath, inplace=True)
+
+        # if casual, merge with casual PL; if linear merge w/ Linear PL
+        if fontOptions["Fonts"][instance]["CASL"] > 0.5:
+            mergePowerlineFont(outputPath, "./font-data/NerdfontsPL-Regular Casual.ttf")
+        else:
+            mergePowerlineFont(outputPath, "./font-data/NerdfontsPL-Regular Linear.ttf")
+
+
+
+        # TODO, maybe: make VF for powerline font, then instantiate specific CASL instance before merging
 
         print(f"\n→ Font saved to '{outputPath}'\n")
 
