@@ -9,13 +9,9 @@
 
 from fontTools.merge import Merger
 
-files = [
-    "./fonts/RecMonoCasual/RecMonoCasual-Regular-1.064.ttf",
-    "./font-data/NerdfontsPL-Regular Casual.ttf"
-]
+def mergePowerlineFont(fontpath, powerlineFontPath):
 
-outputPath = "./fonts/RecMonoCasual/RecMonoCasual-PL.ttf"
+    merged = Merger().merge([fontpath, powerlineFontPath])
 
-merged = Merger().merge(files)
+    merged.save(fontpath)
 
-merged.save(outputPath)
