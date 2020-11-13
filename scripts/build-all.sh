@@ -4,7 +4,7 @@
 
 set -e
 
-version=1.064
+version=1.066
 release=ArrowType-RecMonoCode-v$version
 
 rm -rf ./fonts
