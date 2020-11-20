@@ -82,11 +82,12 @@ Code Ligatures: True
 # ss06 # simplified r
 
 # These options affect both Roman & Cursive styles
-# ss07 # serifless L and Z
-# ss08 # simplified @
+# ss07 # simplified italic diagonals
+# ss08 # serifless L and Z
 # ss09 # simplified 6 and 9
 # ss10 # dotted 0
 # ss11 # simplified 1
+# ss12 # simplified @
 
 # (Keep the hyphen before each list item)
 Features:
