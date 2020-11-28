@@ -68,20 +68,21 @@ Then, specify whether you want code ligatures on by default. Mark `True` for yes
 Finally, you can copy in the font feature options you want:
 
 ```yaml
-# These options only have an affect at CRSV<=0.5 (roman/normal styles)
-- ss01 # single-story a
-- ss02 # single-story g
-- ss03 # simplified f
-- ss04 # simplified i
-- ss05 # simplified l
-- ss06 # simplified r
+# These options only have an affect at CRSV<=0.5 (Roman/normal styles)
+- ss01 # Single-story a
+- ss02 # Single-story g
+- ss03 # Simplified f
+- ss04 # Simplified i
+- ss05 # Simplified l
+- ss06 # Simplified r
 
 # These options affect both Roman & Cursive styles
-- ss07 # serifless L and Z
-- ss08 # simplified @
-- ss09 # simplified 6 and 9
-- ss10 # dotted 0
-- ss11 # simplified 1
+- ss07 # Simplified italic diagonals (kwxyz)
+- ss08 # No-serif L and Z
+- ss09 # Simplified 6 and 9
+- ss10 # Dotted 0
+- ss11 # Simplified 1
+- ss12 # Simplified @
 ```
 
 ![OpenType features](font-data/img/recursive-ot_features.png)

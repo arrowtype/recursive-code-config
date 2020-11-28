@@ -33,7 +33,8 @@ Fonts:
 Code Ligatures: True
 
 Features:
-- ss03 # simplified f
-- ss05 # simplified l
-- ss07 # serifless L and Z
-- ss09 # simplified 6 and 9
+- ss03 # Simplified f
+- ss05 # Simplified l
+- ss08 # Serifless L and Z
+- ss09 # Simplified 6 and 9
+- ss12 # Simplified @
