@@ -72,7 +72,7 @@ Finally, you can copy in the font feature options you want:
 - ss01 # Single-story a
 - ss02 # Single-story g
 - ss03 # Simplified f
-- ss04 # Simplified i
+- ss04 # Simplified i ### NOT CURRENTLY WORKING, see issue #4
 - ss05 # Simplified l
 - ss06 # Simplified r
 

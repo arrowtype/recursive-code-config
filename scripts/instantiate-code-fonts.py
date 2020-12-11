@@ -21,7 +21,7 @@ from dlig2calt import dlig2calt
 from mergePowerlineFont import mergePowerlineFont
 
 # UPDATE FOR NEWER SOURCE VF
-fontPath = "./font-data/Recursive_VF_1.066.ttf"
+fontPath = "./font-data/Recursive_VF_1.067.ttf"
 
 # prevents over-active warning logs
 logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
@@ -176,7 +176,7 @@ def splitFont(
         # -------------------------------------------------------
         # Code font special stuff in post processing
 
-        # freeze in rvrn features with pyftfeatfreeze: serifless 'f', unambiguous 'l', '6', '9'
+        # freeze in rvrn & stylistic set features with pyftfeatfreeze
         pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])}", outputPath, outputPath])
 
         if fontOptions['Code Ligatures']:
@@ -194,5 +194,7 @@ def splitFont(
         # TODO, maybe: make VF for powerline font, then instantiate specific CASL instance before merging
 
         print(f"\n→ Font saved to '{outputPath}'\n")
+
+        print('Features are ', fontOptions['Features'])
 
 splitFont()
