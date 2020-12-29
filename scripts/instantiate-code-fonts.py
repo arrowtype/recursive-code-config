@@ -21,7 +21,7 @@ from dlig2calt import dlig2calt
 from mergePowerlineFont import mergePowerlineFont
 
 # UPDATE FOR NEWER SOURCE VF
-fontPath = "./font-data/Recursive_VF_1.069.ttf"
+fontPath = "./font-data/Recursive_VF_1.070.ttf"
 
 # prevents over-active warning logs
 logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
@@ -137,35 +137,6 @@ def splitFont(
         pathlib.Path(outputSubDir).mkdir(parents=True, exist_ok=True)
 
         # -------------------------------------------------------
-        # OpenType Table fixes
-
-        # drop STAT table to allow RIBBI style naming & linking on Windows
-        del instanceFont["STAT"]
-
-        # In the post table, isFixedPitched flag must be set in the code fonts
-        instanceFont['post'].isFixedPitch = 1
-
-        # In the OS/2 table Panose bProportion must be set to 9
-        instanceFont["OS/2"].panose.bProportion = 9
-
-        # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
-        instanceFont["OS/2"].xAvgCharWidth = 600
-
-        if instance == "Italic":
-            instanceFont['OS/2'].fsSelection = 0b1
-            instanceFont["head"].macStyle = 0b10
-            # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
-            instanceFont["OS/2"].panose.bLetterForm = 11
-
-        if instance == "Bold":
-            instanceFont['OS/2'].fsSelection = 0b100000
-            instanceFont["head"].macStyle = 0b1
-
-        if instance == "Bold Italic":
-            instanceFont['OS/2'].fsSelection = 0b100001
-            instanceFont["head"].macStyle = 0b11
-
-        # -------------------------------------------------------
         # save instance font
 
         outputPath = f"{outputSubDir}/{newFileName}"
@@ -189,9 +160,43 @@ def splitFont(
         else:
             mergePowerlineFont(outputPath, "./font-data/NerdfontsPL-Regular Linear.ttf")
 
-
-
         # TODO, maybe: make VF for powerline font, then instantiate specific CASL instance before merging
+
+        # -------------------------------------------------------
+        # OpenType Table fixes
+
+        monoFont =  ttLib.TTFont(outputPath)
+
+        # drop STAT table to allow RIBBI style naming & linking on Windows
+        try:
+            del monoFont["STAT"]
+        except KeyError:
+            print("Font has no STAT table.")
+
+        # In the post table, isFixedPitched flag must be set in the code fonts
+        monoFont['post'].isFixedPitch = 1
+
+        # In the OS/2 table Panose bProportion must be set to 9
+        monoFont["OS/2"].panose.bProportion = 9
+
+        # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
+        monoFont["OS/2"].xAvgCharWidth = 600
+
+        if instance == "Italic":
+            monoFont['OS/2'].fsSelection = 0b1
+            monoFont["head"].macStyle = 0b10
+            # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
+            monoFont["OS/2"].panose.bLetterForm = 11
+
+        if instance == "Bold":
+            monoFont['OS/2'].fsSelection = 0b100000
+            monoFont["head"].macStyle = 0b1
+
+        if instance == "Bold Italic":
+            monoFont['OS/2'].fsSelection = 0b100001
+            monoFont["head"].macStyle = 0b11
+
+        monoFont.save(outputPath)
 
         print(f"\n→ Font saved to '{outputPath}'\n")
 
