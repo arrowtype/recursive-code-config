@@ -196,6 +196,11 @@ def splitFont(
             monoFont['OS/2'].fsSelection = 0b100001
             monoFont["head"].macStyle = 0b11
 
+        # TEST - setting universal minY and maxY to maybe fix line height diffs. See https://github.com/arrowtype/recursive/issues/418
+
+        monoFont['head'].minY = -455
+        monoFont['head'].maxY = 1208
+
         monoFont.save(outputPath)
 
         print(f"\n→ Font saved to '{outputPath}'\n")
