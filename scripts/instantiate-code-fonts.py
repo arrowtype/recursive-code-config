@@ -198,8 +198,17 @@ def splitFont(
 
         # TEST - setting universal minY and maxY to maybe fix line height diffs. See https://github.com/arrowtype/recursive/issues/418
 
-        monoFont['head'].minY = -455
-        monoFont['head'].maxY = 1208
+        print("-----------------------------")
+        print(f"min Y is {monoFont['head'].yMin}")
+        print(f"max Y is {monoFont['head'].yMax}")
+
+        monoFont['head'].yMin = -455
+        monoFont['head'].yMax = 1208
+        
+        print("-----------------------------")
+        print("after changes...")
+        print(f"min Y is {monoFont['head'].yMin}")
+        print(f"max Y is {monoFont['head'].yMax}")
 
         monoFont.save(outputPath)
 
