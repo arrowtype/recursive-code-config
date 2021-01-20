@@ -13,9 +13,7 @@
 #                                                                 \_______/    
 ```
 
-You can get premade Recursive fonts for Desktop, Web, & Code at https://github.com/arrowtype/recursive/releases/latest. If you are just looking for the premade fonts for code, they are also in this repo.
-
-But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
+You can get premade Recursive fonts for Desktop, Web, & Code at https://github.com/arrowtype/recursive/releases/latest. If you are just looking for the premade fonts for code, they are also in this repo within the `fonts` folder. But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
 
 If you find issues in this customization workflow, please report them in this repo’s [Issues](https://github.com/arrowtype/recursive-code-config/issues).
 
