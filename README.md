@@ -110,3 +110,14 @@ python3 scripts/instantiate-code-fonts.py premade-configs/duotone.yaml
 This argument may also be helpful if you wish to create multiple custom versions. To experiment, just duplicate the `config.yaml` with a new filename, change the `Family Name` option, and run the script pointing to that new config file.
 
 Happy coding!
+
+## Updating to new versions of Recursive (maintener notes)
+
+Recursive gets periodic updates, and this repo needs to get these updates, as well.
+
+Currently, the process to bring in those updates is pretty simple:
+
+1. Copy the latest variable font (e.g. `Recursive_VF_1.0xx.ttf`) into the `font-data` folder
+2. Update the `fontPath` variable in `scripts/instantiate-code-fonts.py` with the latest font path
+
+Then, you can run the build according to instructions above.
