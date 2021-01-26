@@ -109,7 +109,7 @@ This argument may also be helpful if you wish to create multiple custom versions
 
 Happy coding!
 
-## Updating to new versions of Recursive (maintener notes)
+## Updating to new versions of Recursive (maintainer notes)
 
 Recursive gets periodic updates, and this repo needs to get these updates, as well.
 
@@ -117,6 +117,6 @@ Currently, the process to bring in those updates is pretty simple:
 
 1. Copy the latest variable font (e.g. `Recursive_VF_1.0xx.ttf`) into the `font-data` folder
 2. Update the `fontPath` variable in `scripts/instantiate-code-fonts.py` with the latest font path
-3. Activate the `venv` and run `scripts/build-all.sh` to build updated versions of the fonts
+3. Activate the `venv` and run `scripts/build-all.sh <FONTPATH>` to build updated versions of the fonts
 
 Then, you can run the build according to instructions above.

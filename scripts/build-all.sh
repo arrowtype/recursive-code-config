@@ -4,8 +4,12 @@
 
 set -e
 
-version=1.070
+fontPath=$1
+
+version=$(font-v report $fontPath | tail -1)
 release=ArrowType-RecMonoCode-v$version
+
+
 
 rm -rf ./fonts
 
