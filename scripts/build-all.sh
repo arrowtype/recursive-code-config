@@ -9,7 +9,7 @@ fontPath=$1
 version=$(font-v report $fontPath | tail -1)
 release=ArrowType-RecMonoCode-v$version
 
-
+echo $release
 
 rm -rf ./fonts
 
