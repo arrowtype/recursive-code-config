@@ -182,19 +182,40 @@ def splitFont(
         # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
         monoFont["OS/2"].xAvgCharWidth = 600
 
+        # Code to fix fsSelection adapted from:
+        # https://github.com/googlefonts/gftools/blob/a0b516d71f9e7988dfa45af2d0822ec3b6972be4/Lib/gftools/fix.py#L764
+
+        old_selection = fs_selection = monoFont["OS/2"].fsSelection
+
+        # turn off all bits except for bit 7 (USE_TYPO_METRICS)
+        fs_selection &= 1 << 7
+
         if instance == "Italic":
-            monoFont['OS/2'].fsSelection = 0b1
+            
             monoFont["head"].macStyle = 0b10
             # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
             monoFont["OS/2"].panose.bLetterForm = 11
+
+            # set Italic bit
+            fs_selection |= 1 << 0
 
         if instance == "Bold":
             monoFont['OS/2'].fsSelection = 0b100000
             monoFont["head"].macStyle = 0b1
 
+            # set Bold bit
+            fs_selection |= 1 << 5
+
         if instance == "Bold Italic":
             monoFont['OS/2'].fsSelection = 0b100001
             monoFont["head"].macStyle = 0b11
+
+            # set Italic & Bold bits
+            fs_selection |= 1 << 0
+            fs_selection |= 1 << 5
+
+
+        monoFont["OS/2"].fsSelection = fs_selection
 
         monoFont.save(outputPath)
 
