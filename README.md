@@ -119,4 +119,4 @@ Currently, the process to bring in those updates is pretty simple:
 2. Update the `fontPath` variable in `scripts/instantiate-code-fonts.py` with the latest font path
 3. Activate the `venv` and run `scripts/build-all.sh <FONTPATH>` to build updated versions of the fonts
 
-Then, you can run the build according to instructions above.
+Then, you can run the build according to the instructions above.
