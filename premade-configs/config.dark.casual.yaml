@@ -38,7 +38,7 @@ Fonts:
 
   Regular:
     MONO: 1
-    CASL: 0
+    CASL: 0.4
     wght: 375
     slnt: 0
     CRSV: 0
@@ -52,7 +52,7 @@ Fonts:
 
   Bold:
     MONO: 1
-    CASL: 0
+    CASL: 0.4
     wght: 600
     slnt: 0
     CRSV: 0
@@ -91,7 +91,7 @@ Code Ligatures: True
 
 # (Keep the hyphen before each list item)
 Features:
-- ss11 # Simplified 1
+
 - ss12 # Simplified @
 
 
