@@ -13,9 +13,7 @@
 #                                                                 \_______/    
 ```
 
-You can get premade Recursive fonts for Desktop, Web, & Code at https://github.com/arrowtype/recursive/releases/latest. If you are just looking for the premade fonts for code, they are also in this repo.
-
-But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
+You can get premade Recursive fonts for Desktop, Web, & Code at https://github.com/arrowtype/recursive/releases/latest. If you are just looking for the premade fonts for code, they are also in this repo within the `fonts` folder. But, if you want to customize your own build of Recursive for Code, you can run the script in this repo!
 
 If you find issues in this customization workflow, please report them in this repo’s [Issues](https://github.com/arrowtype/recursive-code-config/issues).
 
@@ -68,20 +66,21 @@ Then, specify whether you want code ligatures on by default. Mark `True` for yes
 Finally, you can copy in the font feature options you want:
 
 ```yaml
-# These options only have an affect at CRSV<=0.5 (roman/normal styles)
-- ss01 # single-story a
-- ss02 # single-story g
-- ss03 # simplified f
-- ss04 # simplified i
-- ss05 # simplified l
-- ss06 # simplified r
+# These options only have an affect at CRSV<=0.5 (Roman/normal styles)
+- ss01 # Single-story a
+- ss02 # Single-story g
+- ss03 # Simplified f
+- ss04 # Simplified i ### NOT CURRENTLY WORKING, see issue #4
+- ss05 # Simplified l
+- ss06 # Simplified r
 
 # These options affect both Roman & Cursive styles
-- ss07 # serifless L and Z
-- ss08 # simplified @
-- ss09 # simplified 6 and 9
-- ss10 # dotted 0
-- ss11 # simplified 1
+- ss07 # Simplified italic diagonals (kwxyz)
+- ss08 # No-serif L and Z
+- ss09 # Simplified 6 and 9
+- ss10 # Dotted 0
+- ss11 # Simplified 1
+- ss12 # Simplified @
 ```
 
 ![OpenType features](font-data/img/recursive-ot_features.png)
@@ -103,9 +102,21 @@ It will build & output fonts to a folder like `RecMono-Custom` (this is affected
 If you wish to build fonts with premade configurations (or reference these), just add their path as an argument:
 
 ```bash
-py scripts/instantiate-code-fonts.py premade-configs/duotone.yaml
+python3 scripts/instantiate-code-fonts.py premade-configs/duotone.yaml
 ```
 
 This argument may also be helpful if you wish to create multiple custom versions. To experiment, just duplicate the `config.yaml` with a new filename, change the `Family Name` option, and run the script pointing to that new config file.
 
 Happy coding!
+
+## Updating to new versions of Recursive (maintainer notes)
+
+Recursive gets periodic updates, and this repo needs to get these updates, as well.
+
+Currently, the process to bring in those updates is pretty simple:
+
+1. Copy the latest variable font (e.g. `Recursive_VF_1.0xx.ttf`) into the `font-data` folder
+2. Update the `fontPath` variable in `scripts/instantiate-code-fonts.py` with the latest font path
+3. Activate the `venv` and run `scripts/build-all.sh <FONTPATH>` to build updated versions of the fonts
+
+Then, you can run the build according to the instructions above.

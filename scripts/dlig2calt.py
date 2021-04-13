@@ -42,27 +42,32 @@ def dlig2calt(fontPath, inplace=False):
     unitWidth = font['hmtx']['space'][0] # 600 for most monospace fonts w/ UPM=1000
 
     # make "LIG" glyph
-    # __setitem__(self, glyphName, glyph)
     font['glyf'].__setitem__('LIG', font['glyf']['space'])
 
-    # __setitem__(self, glyphName, advance_sb_pair)
     font['hmtx'].__setitem__('LIG', font['hmtx']['space'])
 
     # update code ligature widths to be single units with left overhang
     for glyphName in font.getGlyphNames():
-        if font['hmtx'][glyphName][0] > 600:
+        if font['hmtx'][glyphName][0] > unitWidth:
 
             decomposeAndRemoveOverlap(font, glyphName)
 
-            # add to dict for later?
-            # codeLigs[glyphName] = font['hmtx'][glyphName][0]
-
             # set width to space (e.g. 600), then offset left side to be negative
-            # lsb = oldLSB - oldWidth
-            oldLSB = font['hmtx'][glyphName][1]
             oldWidth = font['hmtx'][glyphName][0]
-            newLSB = oldLSB - (oldWidth - unitWidth)
+            oldLSB = font['hmtx'][glyphName][1]
+            widthDiff = oldWidth - unitWidth
+            newLSB = oldLSB - widthDiff
             font['hmtx'].__setitem__(glyphName, (unitWidth, newLSB))
+
+            # Adjust coordinates in glyf table
+            coords = font['glyf'][glyphName].coordinates
+            phantoms = font['glyf'].getPhantomPoints(glyphName, font)
+
+            adjustedCoords = [(x-widthDiff, y) for x, y in coords]
+            adjustedPhantoms = [(0,0), (600,0), phantoms[-2], phantoms[-1]]
+
+            newCoords = adjustedCoords+adjustedPhantoms
+            font['glyf'].setCoordinates(glyphName, newCoords, font)
 
 
     # add new feature code, using calt rather than dlig
@@ -72,7 +77,7 @@ def dlig2calt(fontPath, inplace=False):
     # save font
     if inplace:
         font.save(fontPath)
-        print("Saved font inplace with feature 'dlig' changed to 'calt'.")
+        print("\nCode ligatures are now on by default.\n")
     else:
         newPath = fontPath.replace('.ttf','.calt_ligs.ttf')
         font.save(newPath)
@@ -80,12 +85,13 @@ def dlig2calt(fontPath, inplace=False):
 
 
 def main():
+  description = "Change dlig features to calt features."
   parser = ArgumentParser(description=description)
   parser.add_argument('font', nargs=1)
-  parser.add_argument('--inplace', action='store_false')
+  parser.add_argument('--inplace', action='store_true')
   args = parser.parse_args()
 
-  dlig2calt(args.font, args.inplace)
+  dlig2calt(args.font[0], args.inplace)
 
 
 if __name__ == '__main__':

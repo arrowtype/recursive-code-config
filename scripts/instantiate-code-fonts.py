@@ -14,10 +14,14 @@ from fontTools.varLib import instancer
 from opentype_feature_freezer import cli as pyftfeatfreeze
 import subprocess
 import shutil
-from dlig2calt import dlig2calt
 import yaml
 import sys
 import logging
+from dlig2calt import dlig2calt
+from mergePowerlineFont import mergePowerlineFont
+
+# UPDATE FOR NEWER SOURCE VF
+fontPath = "./font-data/Recursive_VF_1.077.ttf"
 
 # prevents over-active warning logs
 logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
@@ -64,10 +68,8 @@ def setFontNameID(font, ID, newName):
 
 oldName = "Recursive"
 
-fontPath = "./font-data/Recursive_VF_1.062.ttf"
-
 def splitFont(
-        outputDirectory=f"RecMono{fontOptions['Family Name']}",
+        outputDirectory=f"RecMono{fontOptions['Family Name']}".replace(" ",""),
         newName="Rec Mono",
 ):
 
@@ -135,35 +137,6 @@ def splitFont(
         pathlib.Path(outputSubDir).mkdir(parents=True, exist_ok=True)
 
         # -------------------------------------------------------
-        # OpenType Table fixes
-
-        # drop STAT table to allow RIBBI style naming & linking on Windows
-        del instanceFont["STAT"]
-
-        # In the post table, isFixedPitched flag must be set in the code fonts
-        instanceFont['post'].isFixedPitch = 1
-
-        # In the OS/2 table Panose bProportion must be set to 9
-        instanceFont["OS/2"].panose.bProportion = 9
-
-        # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
-        instanceFont["OS/2"].xAvgCharWidth = 600
-
-        if instance == "Italic":
-            instanceFont['OS/2'].fsSelection = 0b1
-            instanceFont["head"].macStyle = 0b10
-            # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
-            instanceFont["OS/2"].panose.bLetterForm = 11
-
-        if instance == "Bold":
-            instanceFont['OS/2'].fsSelection = 0b100000
-            instanceFont["head"].macStyle = 0b1
-
-        if instance == "Bold Italic":
-            instanceFont['OS/2'].fsSelection = 0b100001
-            instanceFont["head"].macStyle = 0b11
-
-        # -------------------------------------------------------
         # save instance font
 
         outputPath = f"{outputSubDir}/{newFileName}"
@@ -174,11 +147,80 @@ def splitFont(
         # -------------------------------------------------------
         # Code font special stuff in post processing
 
-        # freeze in rvrn features with pyftfeatfreeze: serifless 'f', unambiguous 'l', '6', '9'
+        # freeze in rvrn & stylistic set features with pyftfeatfreeze
         pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])}", outputPath, outputPath])
 
         if fontOptions['Code Ligatures']:
             # swap dlig2calt to make code ligatures work in old code editor apps
             dlig2calt(outputPath, inplace=True)
+
+        # if casual, merge with casual PL; if linear merge w/ Linear PL
+        if fontOptions["Fonts"][instance]["CASL"] > 0.5:
+            mergePowerlineFont(outputPath, "./font-data/NerdfontsPL-Regular Casual.ttf")
+        else:
+            mergePowerlineFont(outputPath, "./font-data/NerdfontsPL-Regular Linear.ttf")
+
+        # TODO, maybe: make VF for powerline font, then instantiate specific CASL instance before merging
+
+        # -------------------------------------------------------
+        # OpenType Table fixes
+
+        monoFont =  ttLib.TTFont(outputPath)
+
+        # drop STAT table to allow RIBBI style naming & linking on Windows
+        try:
+            del monoFont["STAT"]
+        except KeyError:
+            print("Font has no STAT table.")
+
+        # In the post table, isFixedPitched flag must be set in the code fonts
+        monoFont['post'].isFixedPitch = 1
+
+        # In the OS/2 table Panose bProportion must be set to 9
+        monoFont["OS/2"].panose.bProportion = 9
+
+        # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
+        monoFont["OS/2"].xAvgCharWidth = 600
+
+        # Code to fix fsSelection adapted from:
+        # https://github.com/googlefonts/gftools/blob/a0b516d71f9e7988dfa45af2d0822ec3b6972be4/Lib/gftools/fix.py#L764
+
+        old_selection = fs_selection = monoFont["OS/2"].fsSelection
+
+        # turn off all bits except for bit 7 (USE_TYPO_METRICS)
+        fs_selection &= 1 << 7
+
+        if instance == "Italic":
+            
+            monoFont["head"].macStyle = 0b10
+            # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
+            monoFont["OS/2"].panose.bLetterForm = 11
+
+            # set Italic bit
+            fs_selection |= 1 << 0
+
+        if instance == "Bold":
+            monoFont['OS/2'].fsSelection = 0b100000
+            monoFont["head"].macStyle = 0b1
+
+            # set Bold bit
+            fs_selection |= 1 << 5
+
+        if instance == "Bold Italic":
+            monoFont['OS/2'].fsSelection = 0b100001
+            monoFont["head"].macStyle = 0b11
+
+            # set Italic & Bold bits
+            fs_selection |= 1 << 0
+            fs_selection |= 1 << 5
+
+
+        monoFont["OS/2"].fsSelection = fs_selection
+
+        monoFont.save(outputPath)
+
+        print(f"\n→ Font saved to '{outputPath}'\n")
+
+        print('Features are ', fontOptions['Features'])
 
 splitFont()
