@@ -77,7 +77,7 @@ Code Ligatures: True
 # ss01 # Single-story a
 # ss02 # Single-story g
 # ss03 # Simplified f
-# ss04 # Simplified i
+# ss04 # Simplified i ### NOT CURRENTLY WORKING, see issue #4
 # ss05 # Simplified l
 # ss06 # Simplified r
 
@@ -91,17 +91,17 @@ Code Ligatures: True
 
 # (Keep the hyphen before each list item)
 Features:
-- ss01
+- ss01 # Single-story a
 - ss02 # Single-story g
 - ss03 # Simplified f
 - ss04 # Simplified i
 - ss05 # Simplified l
-- ss06 # Simplified l
-- ss07 # Simplified l
+- ss06 # Simplified r
+- ss07 # Simplified italic diagonals (kwxyz)
 - ss08 # Serifless L and Z
 - ss09 # Simplified 6 and 9
-- ss10 # Simplified 6 and 9
-- ss11 # Simplified 6 and 9
+- ss10 # Dotted 0
+- ss11 # Simplified 1
 - ss12 # Simplified @
 
 # That’s it! See README for next steps.
