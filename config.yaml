@@ -77,7 +77,7 @@ Code Ligatures: True
 # ss01 # Single-story a
 # ss02 # Single-story g
 # ss03 # Simplified f
-# ss04 # Simplified i ### NOT CURRENTLY WORKING, see issue #4
+# ss04 # Simplified i (not currently working, see issue #4)
 # ss05 # Simplified l
 # ss06 # Simplified r
 
