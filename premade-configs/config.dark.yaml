@@ -70,7 +70,7 @@ Fonts:
 # Freeze in code ligatures? True or False
 Code Ligatures: True
 
-# Include font features to freeze in stylistic options. Copy them below to use. 
+# Include font features to freeze in stylistic options. Copy them below to use.
 # See README for details.
 
 # These options only have an affect at CRSV<=0.5 (Roman/normal styles)
@@ -91,8 +91,8 @@ Code Ligatures: True
 
 # (Keep the hyphen before each list item)
 Features:
-- ss11 # Simplified 1
 - ss12 # Simplified @
+- ss08 # No-serif L and Z
 
 
 # That’s it! See README for next steps.
