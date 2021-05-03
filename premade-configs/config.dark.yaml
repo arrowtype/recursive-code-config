@@ -92,7 +92,6 @@ Code Ligatures: True
 # (Keep the hyphen before each list item)
 Features:
 - ss12 # Simplified @
-- ss08 # No-serif L and Z
 
 
 # That’s it! See README for next steps.
