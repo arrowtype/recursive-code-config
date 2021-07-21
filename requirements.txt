@@ -1,14 +1,14 @@
 # to enable all sorts of font manipulation
-fonttools
+fonttools==4.17.0
 
 # to check font versions in the build-all shell script
-font-v
+font-v==1.0.5
 
 # to run the code font instantiation script
-opentype-feature-freezer
+opentype-feature-freezer==1.32.2
 
 # to remove components in code ligatures for improved rendering
-skia-pathops
+skia-pathops==0.6.0.post2
 
 # to parse YAML config file
-pyyaml
+pyyaml==5.4.1
