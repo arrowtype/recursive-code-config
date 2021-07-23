@@ -41,28 +41,28 @@ Fonts:
 
   Regular:
     MONO: 1
-    CASL: 0.25
+    CASL: 0.1
     wght: 375
     slnt: 0
     CRSV: 0
 
   Italic:
     MONO: 1
-    CASL: 0.5
+    CASL: 0.4
     wght: 375
     slnt: -15
     CRSV: 0
 
   Bold:
     MONO: 1
-    CASL: 0.25
+    CASL: 0.1
     wght: 600
     slnt: 0
     CRSV: 0
 
   Bold Italic:
     MONO: 1
-    CASL: 0.5
+    CASL: 0.4
     wght: 600
     slnt: -15
     CRSV: 0
