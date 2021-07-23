@@ -20,10 +20,7 @@
 # Example: "Custom" will yield the family "Rec Mono Custom".
 # Keep under 13 characters in length to avoid potential OS bugs.
 
-# This optimizes readability and enables enhanced focus in dense information
-# long-form text and complex code.
-
-Family Name: Dark Code 02
+Family Name: Light Code 02
 
 # -----------------------------------------------------------------------------
 # Font Styles
@@ -42,30 +39,31 @@ Fonts:
   Regular:
     MONO: 1
     CASL: 0.1
-    wght: 375
+    wght: 350
     slnt: 0
     CRSV: 0
 
   Italic:
     MONO: 1
     CASL: 0.5
-    wght: 375
+    wght: 350
     slnt: -15
     CRSV: 0
 
   Bold:
     MONO: 1
     CASL: 0.1
-    wght: 600
+    wght: 525
     slnt: 0
     CRSV: 0
 
   Bold Italic:
     MONO: 1
     CASL: 0.5
-    wght: 600
+    wght: 525
     slnt: -15
     CRSV: 0
+
 
 # -----------------------------------------------------------------------------
 # Font Features
