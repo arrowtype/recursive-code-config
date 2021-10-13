@@ -21,7 +21,7 @@ from dlig2calt import dlig2calt
 from mergePowerlineFont import mergePowerlineFont
 
 # UPDATE FOR NEWER SOURCE VF
-fontPath = "./font-data/Recursive_VF_1.077.ttf"
+fontPath = "./font-data/Recursive_VF_1.079.ttf"
 
 # prevents over-active warning logs
 logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
