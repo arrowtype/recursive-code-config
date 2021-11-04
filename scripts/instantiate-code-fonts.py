@@ -29,7 +29,7 @@ try:
 except IndexError:
     configPath = './config.yaml'
 
-# UPDATE FOR NEWER SOURCE VF
+# gets font path passed in
 fontPath = sys.argv[2]
 
 # read yaml config
