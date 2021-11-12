@@ -2,9 +2,9 @@
     A script to generate Recursive fonts for code with Regular, Italic, Bold, & Bold Italic,
     as configured in config.yaml. See Readme for usage instructions.
 
-    Run from the directory above, e.g.
+    Run from the directory above, pointing to a config and a variable font path, e.g.
 
-    python3 scripts/instantiate-code-fonts.py
+    python3 scripts/instantiate-code-fonts.py <premade-configs/casual.yaml> <font-data/Recursive_VF_1.081.ttf>
 """
 
 import os
@@ -20,9 +20,6 @@ import logging
 from dlig2calt import dlig2calt
 from mergePowerlineFont import mergePowerlineFont
 
-# UPDATE FOR NEWER SOURCE VF
-fontPath = "./font-data/Recursive_VF_1.079.ttf"
-
 # prevents over-active warning logs
 logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
 
@@ -31,6 +28,9 @@ try:
     configPath = sys.argv[1]
 except IndexError:
     configPath = './config.yaml'
+
+# gets font path passed in
+fontPath = sys.argv[2]
 
 # read yaml config
 with open(configPath) as file:
