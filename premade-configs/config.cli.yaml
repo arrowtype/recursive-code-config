@@ -23,7 +23,7 @@
 # For a striking and inviting tone
 # web headlines, code snippets, command line interfaces
 
-Family Name: Dark Sans 02
+Family Name: Cli 03
 
 # -----------------------------------------------------------------------------
 # Font Styles
@@ -40,28 +40,28 @@ Family Name: Dark Sans 02
 Fonts:
 
   Regular:
-    MONO: 0
+    MONO: 1
     CASL: 1
     wght: 375
     slnt: 0
     CRSV: 0
 
   Italic:
-    MONO: 0
+    MONO: 1
     CASL: 1
     wght: 375
     slnt: -15
     CRSV: 1
 
   Bold:
-    MONO: 0
+    MONO: 1
     CASL: 1
     wght: 600
     slnt: 0
     CRSV: 0
 
   Bold Italic:
-    MONO: 0
+    MONO: 1
     CASL: 1
     wght: 600
     slnt: -15
@@ -71,7 +71,7 @@ Fonts:
 # Font Features
 
 # Freeze in code ligatures? True or False
-Code Ligatures: False
+Code Ligatures: True
 
 # Include font features to freeze in stylistic options. Copy them below to use.
 # See README for details.
@@ -94,8 +94,8 @@ Code Ligatures: False
 
 # (Keep the hyphen before each list item)
 Features:
-- ss20 # slashed-0 in Sans
-- liga
+- ss12 # Simplified @
+
 
 # That’s it! See README for next steps.
 
