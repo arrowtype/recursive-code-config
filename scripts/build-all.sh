@@ -21,7 +21,7 @@ rm -rf ./fonts
 configs=$(ls ./premade-configs)
 
 for config in $configs; do
-    python scripts/instantiate-code-fonts.py ./premade-configs/$config
+    python scripts/instantiate-code-fonts.py ./premade-configs/$config $fontPath
 done
 
 cp -r ./fonts ./$release
