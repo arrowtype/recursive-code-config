@@ -9,6 +9,7 @@
 
 import os
 import pathlib
+import glob
 from fontTools import ttLib
 from fontTools.varLib import instancer
 from opentype_feature_freezer import cli as pyftfeatfreeze
@@ -30,7 +31,10 @@ except IndexError:
     configPath = './config.yaml'
 
 # gets font path passed in
-fontPath = sys.argv[2]
+try:
+    fontPath = sys.argv[2]
+except IndexError:
+    fontPath =  glob.glob('./font-data/Recursive_VF_*.ttf')[0]
 
 # read yaml config
 with open(configPath) as file:
@@ -191,7 +195,7 @@ def splitFont(
         fs_selection &= 1 << 7
 
         if instance == "Italic":
-            
+
             monoFont["head"].macStyle = 0b10
             # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
             monoFont["OS/2"].panose.bLetterForm = 11
