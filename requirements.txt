@@ -1,5 +1,5 @@
 # to enable all sorts of font manipulation
-fonttools==4.17.0
+fonttools[lxml,ufo,unicode]>=4.26.1
 
 # to check font versions in the build-all shell script
 font-v==1.0.5
@@ -12,3 +12,6 @@ skia-pathops==0.6.0.post2
 
 # to parse YAML config file
 pyyaml==5.4.1
+
+# to autohint output fonts
+ttfautohint-py>=0.5.0
