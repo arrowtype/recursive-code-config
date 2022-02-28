@@ -99,7 +99,7 @@ It will build & output fonts to a folder like `RecMono-Custom` (this is affected
 
 **Building with other config files**
 
-If you wish to build fonts with premade configurations (or reference these), just add their path as an argument:
+If you wish to build fonts with premade configurations (or reference these), just add their path as an argument (replace `premade-configs/duotone.yaml` below):
 
 ```bash
 python3 scripts/instantiate-code-fonts.py premade-configs/duotone.yaml
