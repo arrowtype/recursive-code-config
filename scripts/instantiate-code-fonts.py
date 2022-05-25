@@ -10,15 +10,17 @@
 import os
 import pathlib
 from fontTools import ttLib
-from fontTools.varLib import instancer
-from opentype_feature_freezer import cli as pyftfeatfreeze
 import subprocess
 import shutil
 import yaml
 import sys
 import logging
+import ttfautohint
+from fontTools.varLib import instancer
+from opentype_feature_freezer import cli as pyftfeatfreeze
 from dlig2calt import dlig2calt
 from mergePowerlineFont import mergePowerlineFont
+from ttfautohint.options import USER_OPTIONS as ttfautohint_options
 
 # prevents over-active warning logs
 logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
@@ -30,7 +32,8 @@ except IndexError:
     configPath = './config.yaml'
 
 # gets font path passed in
-fontPath = sys.argv[2]
+# fontPath = sys.argv[2]
+fontPath = "font-data/Recursive_VF_1.084.ttf" # TODO: update this to find whatever the latest Recursive file is
 
 # read yaml config
 with open(configPath) as file:
@@ -217,9 +220,21 @@ def splitFont(
 
         monoFont["OS/2"].fsSelection = fs_selection
 
+
         monoFont.save(outputPath)
 
+        # TTF autohint
+
+        ttfautohint_options.update(
+                                    in_file=outputPath,
+                                    out_file=outputPath,
+                                    hint_composites=True
+                                    )
+
+        ttfautohint.ttfautohint()
+
         print(f"\n→ Font saved to '{outputPath}'\n")
+
 
         print('Features are ', fontOptions['Features'])
 

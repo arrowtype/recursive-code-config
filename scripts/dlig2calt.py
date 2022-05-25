@@ -67,6 +67,7 @@ def dlig2calt(fontPath, inplace=False):
             adjustedPhantoms = [(0,0), (600,0), phantoms[-2], phantoms[-1]]
 
             newCoords = adjustedCoords+adjustedPhantoms
+            # print(glyphName, newCoords, font) # DEBUGGING
             font['glyf'].setCoordinates(glyphName, newCoords, font)
 
 
