@@ -32,8 +32,12 @@ except IndexError:
     configPath = './config.yaml'
 
 # gets font path passed in
-# fontPath = sys.argv[2]
-fontPath = "font-data/Recursive_VF_1.084.ttf" # TODO: update this to find whatever the latest Recursive file is
+try:
+    fontPath = sys.argv[2] # allows custom path to be passed in, helpful for generating new release from arrowtype/recursive dir
+except IndexError:
+    fontPath = "font-data/Recursive_VF_1.085.ttf" # allows script to run without font path passed in. Update this to find whatever the latest Recursive file is
+
+
 
 # read yaml config
 with open(configPath) as file:
