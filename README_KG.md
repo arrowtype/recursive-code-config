@@ -3,7 +3,7 @@
 # fetch latest changes to upstream
 
 ```
-# git remote add upstream git://github.com/ORIGINAL-DEV-USERNAME/REPO-YOU-FORKED-FROM.git
+# git remote add upstream https://github.com/arrowtype/recursive-code-config.git
 git fetch upstream
 git pull upstream main
 ```
@@ -14,7 +14,7 @@ git pull upstream main
 ```
 python -m venv venv             # make a virtual environment called "venv"
 bash
-source venv/bin/activate         # activate the virtual environment
+source venv/bin/activate.fish         # activate the virtual environment
 pip install -r requirements.txt  # install dependencies
 ```
 
@@ -22,6 +22,6 @@ pip install -r requirements.txt  # install dependencies
 
 ```
 bash
-source venv/bin/activate         # activate the virtual environment if you haven’t already
+source venv/bin/activate.fish   # activate the virtual environment if you haven’t already
 python scripts/instantiate-code-fonts.py premade-configs/config.kg.yaml font-data/Recursive_VF_1.085.ttf
 ```
