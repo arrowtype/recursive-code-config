@@ -23,5 +23,5 @@ pip install -r requirements.txt  # install dependencies
 ```
 bash
 source venv/bin/activate         # activate the virtual environment if you haven’t already
-python scripts/instantiate-code-fonts.py premade-configs/config.code.yaml font-data/Recursive_VF_1.084.ttf
+python scripts/instantiate-code-fonts.py premade-configs/config.kg.yaml font-data/Recursive_VF_1.085.ttf
 ```
