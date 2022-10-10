@@ -23,7 +23,7 @@
 # For a striking and inviting tone
 # web headlines, code snippets, command line interfaces
 
-Family Name: "06"
+Family Name: "07"
 
 # -----------------------------------------------------------------------------
 # Font Styles
@@ -41,7 +41,7 @@ Fonts:
 
   Regular:
     MONO: 1
-    CASL: 1
+    CASL: 0.6
     wght: 375
     slnt: 0
     CRSV: 0
@@ -55,7 +55,7 @@ Fonts:
 
   Medium:
     MONO: 1
-    CASL: 1
+    CASL: 0.6
     wght: 500
     slnt: 0
     CRSV: 0
@@ -69,7 +69,7 @@ Fonts:
 
   Semi Bold:
     MONO: 1
-    CASL: 1
+    CASL: 0.6
     wght: 600
     slnt: 0
     CRSV: 0
@@ -83,7 +83,7 @@ Fonts:
 
   Bold:
     MONO: 1
-    CASL: 1
+    CASL: 0.6
     wght: 700
     slnt: 0
     CRSV: 0
