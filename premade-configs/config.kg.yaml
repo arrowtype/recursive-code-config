@@ -23,7 +23,7 @@
 # For a striking and inviting tone
 # web headlines, code snippets, command line interfaces
 
-Family Name: "07"
+Family Name: "08"
 
 # -----------------------------------------------------------------------------
 # Font Styles
@@ -115,9 +115,7 @@ Code Ligatures: True
 
 # These options affect both Roman & Cursive styles
 # ss07 # Simplified italic diagonals (kwxyz)
-# ss08 # No-serif L and Z
 # ss09 # Simplified 6 and 9
-# ss10 # Dotted 0
 # ss11 # Simplified 1
 # ss12 # Simplified @
 
@@ -125,9 +123,11 @@ Code Ligatures: True
 Features:
 - dlig # Code ligatures
 - ss02 # Single-story g
-- ss12 # Simplified @
 - ss06 # Simplified r
+- ss08 # No-serif L and Z
+- ss10 # Dotted 0
 - ss11 # Simplified 1
+- ss12 # Simplified @
 - frac # fractions
 
 # That’s it! See README for next steps.
