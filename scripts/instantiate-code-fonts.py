@@ -155,7 +155,8 @@ def splitFont(
         # Code font special stuff in post processing
 
         # freeze in rvrn & stylistic set features with pyftfeatfreeze
-        pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])}", outputPath, outputPath])
+        if fontOptions['Features'] is not None:
+            pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])}", outputPath, outputPath])
 
         if fontOptions['Code Ligatures']:
             # swap dlig2calt to make code ligatures work in old code editor apps
