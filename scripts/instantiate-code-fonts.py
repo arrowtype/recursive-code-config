@@ -4,7 +4,7 @@
 
     Run from the directory above, pointing to a config and a variable font path, e.g.
 
-    python3 scripts/instantiate-code-fonts.py <premade-configs/casual.yaml> <font-data/Recursive_VF_1.081.ttf>
+    python3 scripts/instantiate-code-fonts.py <premade-configs/casual.yaml>
 """
 
 import os
