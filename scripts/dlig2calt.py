@@ -10,28 +10,6 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from argparse import ArgumentParser
 import pathops
 
-def decomposeAndRemoveOverlap(font, glyphName):
-
-    glyfTable = font["glyf"]
-    glyphSet = font.getGlyphSet()
-
-    # record TTGlyph outlines without components
-    dcPen = DecomposingRecordingPen(glyphSet)
-    glyphSet[glyphName].draw(dcPen)
-
-    # replay recording onto a skia-pathops Path
-    path = pathops.Path()
-    pathPen = path.getPen()
-    dcPen.replay(pathPen)
-
-    # remove overlaps
-    path.simplify()
-
-    # create new TTGlyph from Path
-    ttPen = TTGlyphPen(None)
-    path.draw(ttPen)
-    glyfTable[glyphName] = ttPen.glyph()
-
 
 # codeLigs = {} # probably not needed
 
@@ -49,8 +27,6 @@ def dlig2calt(fontPath, inplace=False):
     # update code ligature widths to be single units with left overhang
     for glyphName in font.getGlyphNames():
         if font['hmtx'][glyphName][0] > unitWidth:
-
-            # decomposeAndRemoveOverlap(font, glyphName)
 
             # set width to space (e.g. 600), then offset left side to be negative
             oldWidth = font['hmtx'][glyphName][0]
