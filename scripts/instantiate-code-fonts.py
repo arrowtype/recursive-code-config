@@ -9,6 +9,7 @@
 
 import os
 import pathlib
+import glob
 from fontTools import ttLib
 import subprocess
 import shutil
@@ -35,9 +36,7 @@ except IndexError:
 try:
     fontPath = sys.argv[2] # allows custom path to be passed in, helpful for generating new release from arrowtype/recursive dir
 except IndexError:
-    fontPath = "font-data/Recursive_VF_1.085.ttf" # allows script to run without font path passed in. Update this to find whatever the latest Recursive file is
-
-
+    fontPath =  glob.glob('./font-data/Recursive_VF_*.ttf')[0] # allows script to run without font path passed in.
 
 # read yaml config
 with open(configPath) as file:
@@ -198,7 +197,7 @@ def splitFont(
         fs_selection &= 1 << 7
 
         if instance == "Italic":
-            
+
             monoFont["head"].macStyle = 0b10
             # In the OS/2 table Panose bProportion must be set to 11 for "oblique boxed" (this is partially a guess)
             monoFont["OS/2"].panose.bLetterForm = 11
