@@ -30,8 +30,17 @@ The basic way to use this tool is to:
 
 This instantiates custom fonts for Regular, Italic, Bold, and Bold Italic styles, which you can then use in your preferred editor. One VS Code theme that supports Italics is the [Recursive Theme](https://github.com/arrowtype/recursive-theme).
 
+### Video tutorial for Python beginners
 
-### Prerequisites for this Python project
+Here’s a step-by-step video tutorial, if you aren’t used to working with Python projects like this one:
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Ye9sYN5TNz8/0.jpg)](https://www.youtube.com/watch?v=Ye9sYN5TNz8)
+
+You can also follow the instructions below. I have tried to make them pretty granular. My advice is to try the instructions below, and watch the video if you get stuck. If you get _really_ stuck, please [file an issue](https://github.com/arrowtype/recursive-code-config/issues))! It may not be your fault.
+
+### Step-by-step guide
+
+#### Prerequisites for this Python project
 
 - To work directly with these examples, you should have [Git set up on your computer](https://help.github.com/en/github/getting-started-with-github/set-up-git).
 - To run the font-building script, you must also [Download Python](http://python.org/download/) and install it if you haven’t already.
@@ -53,7 +62,7 @@ pip install -r requirements.txt  # install dependencies
 ```
 
 
-### 1. Customize your font settings in `config.yaml`
+#### 1. Customize your font settings in `config.yaml`
 
 This file uses YAML. Hopefully, it is fairly self-explanatory. If not, file an issue and someone will hopefully help out!
 
@@ -86,7 +95,7 @@ Finally, you can copy in the font feature options you want:
 ![OpenType features](font-data/img/recursive-ot_features.png)
 
 
-### 2. Build the fonts!
+#### 2. Build the fonts!
 
 Build the fonts by running the main Python script in the project:
 
@@ -97,7 +106,7 @@ python3 scripts/instantiate-code-fonts.py
 
 It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
 
-**Building with other config files**
+#### Building with other config files
 
 If you wish to build fonts with premade configurations (or reference these), just add their path as an argument (replace `premade-configs/duotone.yaml` below):
 
