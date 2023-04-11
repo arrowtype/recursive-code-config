@@ -27,6 +27,7 @@ The basic way to use this tool is to:
 1. Clone the repo and install dependencies (you may wish to fork first, so you can save your preferences to GitHub)
 2. Configure your font options in `config.yaml`
 3. Run the build script
+4. Install the fonts and activate `calt` in your coding app, if you want the code ligatures to be active
 
 This instantiates custom fonts for Regular, Italic, Bold, and Bold Italic styles, which you can then use in your preferred editor. One VS Code theme that supports Italics is the [Recursive Theme](https://github.com/arrowtype/recursive-theme).
 
@@ -106,6 +107,18 @@ python3 scripts/instantiate-code-fonts.py
 
 It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
 
+#### 3. Install the fonts and activate the ligatures!
+
+This project saves the “code ligatures” to the `calt` feature of fonts, which is the feature most often used by code editors to control code ligatures.
+
+In many apps, the `calt` feature will be on by default. In others, like VS Code, you will need to specifically turn it on. 
+
+In VS Code specifically, you can turn on `calt` by adding `fontLigatures` into the `settings.json` file and setting it to `true`:
+
+```JSON
+    "editor.fontLigatures": true
+```
+
 #### Building with other config files
 
 If you wish to build fonts with premade configurations (or reference these), just add their path as an argument (replace `premade-configs/duotone.yaml` below):
@@ -124,8 +137,7 @@ Recursive gets periodic updates, and this repo needs to get these updates, as we
 
 Currently, the process to bring in those updates is pretty simple:
 
-1. Copy the latest variable font (e.g. `Recursive_VF_1.0xx.ttf`) into the `font-data` folder
-2. Update the `fontPath` variable in `scripts/instantiate-code-fonts.py` with the latest font path
+1. Copy the latest variable font (e.g. `Recursive_VF_1.0xx.ttf`) into the `font-data` folder, and delete the old one
 3. Activate the `venv` and run `scripts/build-all.sh <FONTPATH>` to build updated versions of the fonts
 
 Then, you can run the build according to the instructions above.
