@@ -18,6 +18,7 @@ import sys
 import logging
 import ttfautohint
 from fontTools.varLib import instancer
+from fontTools.varLib.instancer import OverlapMode
 from opentype_feature_freezer import cli as pyftfeatfreeze
 from dlig2calt import dlig2calt
 from mergePowerlineFont import mergePowerlineFont
@@ -100,6 +101,7 @@ def splitFont(
                 "slnt": fontOptions["Fonts"][instance]["slnt"],
                 "CRSV": fontOptions["Fonts"][instance]["CRSV"],
             },
+            overlap=OverlapMode.REMOVE
         )
 
         # UPDATE NAME ID 6, postscript name
