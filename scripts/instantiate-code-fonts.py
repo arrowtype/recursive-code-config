@@ -4,22 +4,24 @@
 
     Run from the directory above, pointing to a config and a variable font path, e.g.
 
-    python3 scripts/instantiate-code-fonts.py <premade-configs/casual.yaml> <font-data/Recursive_VF_1.081.ttf>
+    python3 scripts/instantiate-code-fonts.py <premade-configs/casual.yaml>
 """
 
 import os
 import pathlib
 import glob
 from fontTools import ttLib
-from fontTools.varLib import instancer
-from opentype_feature_freezer import cli as pyftfeatfreeze
 import subprocess
 import shutil
 import yaml
 import sys
 import logging
+import ttfautohint
+from fontTools.varLib import instancer
+from opentype_feature_freezer import cli as pyftfeatfreeze
 from dlig2calt import dlig2calt
 from mergePowerlineFont import mergePowerlineFont
+from ttfautohint.options import USER_OPTIONS as ttfautohint_options
 
 # prevents over-active warning logs
 logging.getLogger("opentype_feature_freezer").setLevel(logging.ERROR)
@@ -32,9 +34,9 @@ except IndexError:
 
 # gets font path passed in
 try:
-    fontPath = sys.argv[2]
+    fontPath = sys.argv[2] # allows custom path to be passed in, helpful for generating new release from arrowtype/recursive dir
 except IndexError:
-    fontPath =  glob.glob('./font-data/Recursive_VF_*.ttf')[0]
+    fontPath =  glob.glob('./font-data/Recursive_VF_*.ttf')[0] # allows script to run without font path passed in.
 
 # read yaml config
 with open(configPath) as file:
@@ -221,9 +223,21 @@ def splitFont(
 
         monoFont["OS/2"].fsSelection = fs_selection
 
+
         monoFont.save(outputPath)
 
+        # TTF autohint
+
+        ttfautohint_options.update(
+                                    in_file=outputPath,
+                                    out_file=outputPath,
+                                    hint_composites=True
+                                    )
+
+        ttfautohint.ttfautohint()
+
         print(f"\n→ Font saved to '{outputPath}'\n")
+
 
         print('Features are ', fontOptions['Features'])
 
