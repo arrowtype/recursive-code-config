@@ -54,6 +54,8 @@ git clone https://github.com/arrowtype/recursive-code-config.git
 cd recursive-code-config
 ```
 
+##### Using the venv, on macOS (and maybe Linux?)
+
 Then, set up the venv and install requirements:
 
 ```bash
@@ -62,6 +64,15 @@ source venv/bin/activate         # activate the virtual environment
 pip install -r requirements.txt  # install dependencies
 ```
 
+##### Using the venv, on Windows
+
+Setting up the venv and install requirements is slightly different in Windows, in my testing. Navigate to the project in a terminal, and then use the following commands:
+
+```bash
+py -m venv venv                  # make a virtual environment called "venv"
+venv\Scripts\activate            # activate the virtual environment 
+pip install -r requirements.txt  # install dependencies
+```
 
 #### 1. Customize your font settings in `config.yaml`
 
@@ -95,6 +106,11 @@ Finally, you can copy in the font feature options you want:
 
 ![OpenType features](font-data/img/recursive-ot_features.png)
 
+If you want to turn off all features, you can specify an empty array in YAML like this:
+
+```yaml
+Features: []
+```
 
 #### 2. Build the fonts!
 

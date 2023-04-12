@@ -94,6 +94,9 @@ Code Ligatures: True
 # Some features (especially "case") will disrupt code ligatures.
 # See Issue #20 for more details.
 
+# If you want to turn off all features, you can specify an empty array in YAML like this:
+# Features: []
+
 # (Keep the hyphen before each list item)
 Features:
 - ss01 # Single-story a
