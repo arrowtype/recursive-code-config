@@ -35,7 +35,7 @@ This instantiates custom fonts for Regular, Italic, Bold, and Bold Italic styles
 
 Here’s a step-by-step video tutorial, if you aren’t used to working with Python projects like this one:
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Ye9sYN5TNz8/0.jpg)](https://www.youtube.com/watch?v=Ye9sYN5TNz8)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/xEVrdlp24ss/0.jpg)](https://www.youtube.com/watch?v=xEVrdlp24ss)
 
 You can also follow the instructions below. I have tried to make them pretty granular. My advice is to try the instructions below, and watch the video if you get stuck. If you get _really_ stuck, please [file an issue](https://github.com/arrowtype/recursive-code-config/issues))! It may not be your fault.
 
