@@ -96,7 +96,7 @@ Finally, you can copy in the font feature options you want:
 - ss06 # Simplified r
 
 # These options affect both Roman & Cursive styles
-- ss07 # Simplified italic diagonals (kwxyz)
+- ss07 # Simplified italic diagonals (kwxyz) ### NOT CURRENTLY WORKING, see issue #4
 - ss08 # No-serif L and Z
 - ss09 # Simplified 6 and 9
 - ss10 # Dotted 0
