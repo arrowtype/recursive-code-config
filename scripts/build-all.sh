@@ -4,28 +4,10 @@
 
 set -e
 
-if [ -z "$1" ];then
-    echo "No argument supplied – font path required"
-    exit 1
-fi
-
-fontPath=$1
-
-version=$(font-v report $fontPath | tail -1)
-release=ArrowType-RecMonoCode-v$version
-
-echo $release
-
 rm -rf ./fonts
 
 configs=$(ls ./premade-configs)
 
 for config in $configs; do
-    python3 scripts/instantiate-code-fonts.py ./premade-configs/$config $fontPath
+    python3 scripts/instantiate-code-fonts.py ./premade-configs/$config
 done
-
-cp -r ./fonts ./$release
-
-zip $release.zip -r $release -x .DS_*
-
-rm -rf $release

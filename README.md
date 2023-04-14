@@ -27,11 +27,21 @@ The basic way to use this tool is to:
 1. Clone the repo and install dependencies (you may wish to fork first, so you can save your preferences to GitHub)
 2. Configure your font options in `config.yaml`
 3. Run the build script
+4. Install the fonts and activate `calt` in your coding app, if you want the code ligatures to be active
 
 This instantiates custom fonts for Regular, Italic, Bold, and Bold Italic styles, which you can then use in your preferred editor. One VS Code theme that supports Italics is the [Recursive Theme](https://github.com/arrowtype/recursive-theme).
 
+### Video tutorial for Python beginners
 
-### Prerequisites for this Python project
+Here’s a step-by-step video tutorial, if you aren’t used to working with Python projects like this one:
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/xEVrdlp24ss/0.jpg)](https://www.youtube.com/watch?v=xEVrdlp24ss)
+
+You can also follow the instructions below. I have tried to make them pretty granular. My advice is to try the instructions below, and watch the video if you get stuck. If you get _really_ stuck, please [file an issue](https://github.com/arrowtype/recursive-code-config/issues))! It may not be your fault.
+
+### Step-by-step guide
+
+#### Prerequisites for this Python project
 
 - To work directly with these examples, you should have [Git set up on your computer](https://help.github.com/en/github/getting-started-with-github/set-up-git).
 - To run the font-building script, you must also [Download Python](http://python.org/download/) and install it if you haven’t already.
@@ -44,6 +54,8 @@ git clone https://github.com/arrowtype/recursive-code-config.git
 cd recursive-code-config
 ```
 
+##### Using the venv, on macOS (and maybe Linux?)
+
 Then, set up the venv and install requirements:
 
 ```bash
@@ -52,8 +64,17 @@ source venv/bin/activate         # activate the virtual environment
 pip install -r requirements.txt  # install dependencies
 ```
 
+##### Using the venv, on Windows
 
-### 1. Customize your font settings in `config.yaml`
+Setting up the venv and install requirements is slightly different in Windows, in my testing. Navigate to the project in a terminal, and then use the following commands:
+
+```bash
+py -m venv venv                  # make a virtual environment called "venv"
+venv\Scripts\activate            # activate the virtual environment 
+pip install -r requirements.txt  # install dependencies
+```
+
+#### 1. Customize your font settings in `config.yaml`
 
 This file uses YAML. Hopefully, it is fairly self-explanatory. If not, file an issue and someone will hopefully help out!
 
@@ -75,7 +96,7 @@ Finally, you can copy in the font feature options you want:
 - ss06 # Simplified r
 
 # These options affect both Roman & Cursive styles
-- ss07 # Simplified italic diagonals (kwxyz)
+- ss07 # Simplified italic diagonals (kwxyz) ### NOT CURRENTLY WORKING, see issue #4
 - ss08 # No-serif L and Z
 - ss09 # Simplified 6 and 9
 - ss10 # Dotted 0
@@ -85,8 +106,13 @@ Finally, you can copy in the font feature options you want:
 
 ![OpenType features](font-data/img/recursive-ot_features.png)
 
+If you want to turn off all features, you can specify an empty array in YAML like this:
 
-### 2. Build the fonts!
+```yaml
+Features: []
+```
+
+#### 2. Build the fonts!
 
 Build the fonts by running the main Python script in the project:
 
@@ -97,7 +123,19 @@ python3 scripts/instantiate-code-fonts.py
 
 It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
 
-**Building with other config files**
+#### 3. Install the fonts and activate the ligatures!
+
+This project saves the “code ligatures” to the `calt` feature of fonts, which is the feature most often used by code editors to control code ligatures.
+
+In many apps, the `calt` feature will be on by default. In others, like VS Code, you will need to specifically turn it on. 
+
+In VS Code specifically, you can turn on `calt` by adding `fontLigatures` into the `settings.json` file and setting it to `true`:
+
+```JSON
+    "editor.fontLigatures": true
+```
+
+#### Building with other config files
 
 If you wish to build fonts with premade configurations (or reference these), just add their path as an argument (replace `premade-configs/duotone.yaml` below):
 
@@ -115,8 +153,7 @@ Recursive gets periodic updates, and this repo needs to get these updates, as we
 
 Currently, the process to bring in those updates is pretty simple:
 
-1. Copy the latest variable font (e.g. `Recursive_VF_1.0xx.ttf`) into the `font-data` folder
-2. Update the `fontPath` variable in `scripts/instantiate-code-fonts.py` with the latest font path
+1. Copy the latest variable font (e.g. `Recursive_VF_1.0xx.ttf`) into the `font-data` folder, and delete the old one
 3. Activate the `venv` and run `scripts/build-all.sh <FONTPATH>` to build updated versions of the fonts
 
 Then, you can run the build according to the instructions above.

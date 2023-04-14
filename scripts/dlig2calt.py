@@ -10,28 +10,6 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from argparse import ArgumentParser
 import pathops
 
-def decomposeAndRemoveOverlap(font, glyphName):
-
-    glyfTable = font["glyf"]
-    glyphSet = font.getGlyphSet()
-
-    # record TTGlyph outlines without components
-    dcPen = DecomposingRecordingPen(glyphSet)
-    glyphSet[glyphName].draw(dcPen)
-
-    # replay recording onto a skia-pathops Path
-    path = pathops.Path()
-    pathPen = path.getPen()
-    dcPen.replay(pathPen)
-
-    # remove overlaps
-    path.simplify()
-
-    # create new TTGlyph from Path
-    ttPen = TTGlyphPen(None)
-    path.draw(ttPen)
-    glyfTable[glyphName] = ttPen.glyph()
-
 
 # codeLigs = {} # probably not needed
 
@@ -50,8 +28,6 @@ def dlig2calt(fontPath, inplace=False):
     for glyphName in font.getGlyphNames():
         if font['hmtx'][glyphName][0] > unitWidth:
 
-            decomposeAndRemoveOverlap(font, glyphName)
-
             # set width to space (e.g. 600), then offset left side to be negative
             oldWidth = font['hmtx'][glyphName][0]
             oldLSB = font['hmtx'][glyphName][1]
@@ -60,15 +36,17 @@ def dlig2calt(fontPath, inplace=False):
             font['hmtx'].__setitem__(glyphName, (unitWidth, newLSB))
 
             # Adjust coordinates in glyf table
-            coords = font['glyf'][glyphName].coordinates
-            phantoms = font['glyf'].getPhantomPoints(glyphName, font)
+            coords = font['glyf']._getCoordinatesAndControls(glyphName, font['hmtx'].metrics)[0]
+            phantoms = font['glyf']._getPhantomPoints(glyphName, font['hmtx'].metrics)
+
+            # take off last four items of coords to allow adjusted phantoms to be handled separately, then combined
+            coords = coords[:len(coords)-4]
 
             adjustedCoords = [(x-widthDiff, y) for x, y in coords]
             adjustedPhantoms = [(0,0), (600,0), phantoms[-2], phantoms[-1]]
 
             newCoords = adjustedCoords+adjustedPhantoms
-            # print(glyphName, newCoords, font) # DEBUGGING
-            font['glyf'].setCoordinates(glyphName, newCoords, font)
+            font['glyf']._setCoordinates(glyphName, newCoords, font['hmtx'].metrics)
 
 
     # add new feature code, using calt rather than dlig

@@ -4,11 +4,12 @@
 
     Run from the directory above, pointing to a config and a variable font path, e.g.
 
-    python3 scripts/instantiate-code-fonts.py <premade-configs/casual.yaml> <font-data/Recursive_VF_1.081.ttf>
+    python3 scripts/instantiate-code-fonts.py <premade-configs/casual.yaml>
 """
 
 import os
 import pathlib
+import glob
 from fontTools import ttLib
 import subprocess
 import shutil
@@ -17,6 +18,7 @@ import sys
 import logging
 import ttfautohint
 from fontTools.varLib import instancer
+from fontTools.varLib.instancer import OverlapMode
 from opentype_feature_freezer import cli as pyftfeatfreeze
 from dlig2calt import dlig2calt
 from mergePowerlineFont import mergePowerlineFont
@@ -35,9 +37,7 @@ except IndexError:
 try:
     fontPath = sys.argv[2] # allows custom path to be passed in, helpful for generating new release from arrowtype/recursive dir
 except IndexError:
-    fontPath = "font-data/Recursive_VF_1.085.ttf" # allows script to run without font path passed in. Update this to find whatever the latest Recursive file is
-
-
+    fontPath =  glob.glob('./font-data/Recursive_VF_*.ttf')[0] # allows script to run without font path passed in.
 
 # read yaml config
 with open(configPath) as file:
@@ -101,6 +101,7 @@ def splitFont(
                 "slnt": fontOptions["Fonts"][instance]["slnt"],
                 "CRSV": fontOptions["Fonts"][instance]["CRSV"],
             },
+            overlap=OverlapMode.REMOVE
         )
 
         # UPDATE NAME ID 6, postscript name
