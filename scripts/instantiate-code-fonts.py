@@ -155,8 +155,12 @@ def splitFont(
         # -------------------------------------------------------
         # Code font special stuff in post processing
 
-        # freeze in rvrn & stylistic set features with pyftfeatfreeze
-        pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])}", outputPath, outputPath])
+        if fontOptions["Fonts"][instance]["MONO"] == 1:
+            # freeze in rvrn & stylistic set features with pyftfeatfreeze
+            pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])}", outputPath, outputPath])
+        else:
+            # if font is proportional, also keep the kern feature for kerning
+            pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])},kern", outputPath, outputPath])
 
         if fontOptions['Code Ligatures']:
             # swap dlig2calt to make code ligatures work in old code editor apps
@@ -181,14 +185,16 @@ def splitFont(
         except KeyError:
             print("Font has no STAT table.")
 
-        # In the post table, isFixedPitched flag must be set in the code fonts
-        monoFont['post'].isFixedPitch = 1
+        if fontOptions["Fonts"][instance]["MONO"] == 1:
 
-        # In the OS/2 table Panose bProportion must be set to 9
-        monoFont["OS/2"].panose.bProportion = 9
+            # In the post table, isFixedPitched flag must be set in the code fonts
+            monoFont['post'].isFixedPitch = 1
 
-        # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
-        monoFont["OS/2"].xAvgCharWidth = 600
+            # In the OS/2 table Panose bProportion must be set to 9
+            monoFont["OS/2"].panose.bProportion = 9
+
+            # Also in the OS/2 table, xAvgCharWidth should be set to 600 rather than 612 (612 is an average of glyphs in the "Mono" files which include wide ligatures).
+            monoFont["OS/2"].xAvgCharWidth = 600
 
         # Code to fix fsSelection adapted from:
         # https://github.com/googlefonts/gftools/blob/a0b516d71f9e7988dfa45af2d0822ec3b6972be4/Lib/gftools/fix.py#L764

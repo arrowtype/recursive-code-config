@@ -17,7 +17,9 @@ def dlig2calt(fontPath, inplace=False):
 
     font = ttLib.TTFont(fontPath)
 
-    unitWidth = font['hmtx']['space'][0] # 600 for most monospace fonts w/ UPM=1000
+    # set unit width / tabular width ... assumes the "=" symbol will have a tabular width for any code font
+    # 600 for most monospace fonts w/ UPM=1000
+    unitWidth = font['hmtx']['equal'][0]
 
     # make "LIG" glyph
     font['glyf'].__setitem__('LIG', font['glyf']['space'])
@@ -28,25 +30,28 @@ def dlig2calt(fontPath, inplace=False):
     for glyphName in font.getGlyphNames():
         if font['hmtx'][glyphName][0] > unitWidth:
 
-            # set width to space (e.g. 600), then offset left side to be negative
-            oldWidth = font['hmtx'][glyphName][0]
-            oldLSB = font['hmtx'][glyphName][1]
-            widthDiff = oldWidth - unitWidth
-            newLSB = oldLSB - widthDiff
-            font['hmtx'].__setitem__(glyphName, (unitWidth, newLSB))
+            # only apply this to code ligatures... leave other glyphs as-is, in case they are intentionally proportional (i.e. MONO != 1)
+            if ".code" in glyphName:
 
-            # Adjust coordinates in glyf table
-            coords = font['glyf']._getCoordinatesAndControls(glyphName, font['hmtx'].metrics)[0]
-            phantoms = font['glyf']._getPhantomPoints(glyphName, font['hmtx'].metrics)
+                # set width to equal sign (e.g. 600), then offset left side to be negative
+                oldWidth = font['hmtx'][glyphName][0]
+                oldLSB = font['hmtx'][glyphName][1]
+                widthDiff = oldWidth - unitWidth
+                newLSB = oldLSB - widthDiff
+                font['hmtx'].__setitem__(glyphName, (unitWidth, newLSB))
 
-            # take off last four items of coords to allow adjusted phantoms to be handled separately, then combined
-            coords = coords[:len(coords)-4]
+                # Adjust coordinates in glyf table
+                coords = font['glyf']._getCoordinatesAndControls(glyphName, font['hmtx'].metrics)[0]
+                phantoms = font['glyf']._getPhantomPoints(glyphName, font['hmtx'].metrics)
 
-            adjustedCoords = [(x-widthDiff, y) for x, y in coords]
-            adjustedPhantoms = [(0,0), (600,0), phantoms[-2], phantoms[-1]]
+                # take off last four items of coords to allow adjusted phantoms to be handled separately, then combined
+                coords = coords[:len(coords)-4]
 
-            newCoords = adjustedCoords+adjustedPhantoms
-            font['glyf']._setCoordinates(glyphName, newCoords, font['hmtx'].metrics)
+                adjustedCoords = [(x-widthDiff, y) for x, y in coords]
+                adjustedPhantoms = [(0,0), (600,0), phantoms[-2], phantoms[-1]]
+
+                newCoords = adjustedCoords+adjustedPhantoms
+                font['glyf']._setCoordinates(glyphName, newCoords, font['hmtx'].metrics)
 
 
     # add new feature code, using calt rather than dlig
