@@ -20,7 +20,7 @@ import ttfautohint
 from fontTools.varLib import instancer
 from fontTools.varLib.instancer import OverlapMode
 from opentype_feature_freezer import cli as pyftfeatfreeze
-from dlig2calt import dlig2calt
+from dlig2calt import (makeCodeLigsMonospace, simpleDlig2calt)
 from mergePowerlineFont import mergePowerlineFont
 from ttfautohint.options import USER_OPTIONS as ttfautohint_options
 
@@ -162,9 +162,12 @@ def splitFont(
             # if font is proportional, also keep the kern feature for kerning
             pyftfeatfreeze.main([f"--features=rvrn,{','.join(fontOptions['Features'])},kern", outputPath, outputPath])
 
-        if fontOptions['Code Ligatures']:
+        if fontOptions['Code Ligatures'] and fontOptions["Fonts"][instance]["MONO"] == 1:
             # swap dlig2calt to make code ligatures work in old code editor apps
-            dlig2calt(outputPath, inplace=True)
+            makeCodeLigsMonospace(outputPath, inplace=True)
+
+        if fontOptions['Code Ligatures'] and fontOptions["Fonts"][instance]["MONO"] < 1:
+            simpleDlig2calt(outputPath, inplace=True)
 
         # if casual, merge with casual PL; if linear merge w/ Linear PL
         if fontOptions["Fonts"][instance]["CASL"] > 0.5:
