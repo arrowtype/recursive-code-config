@@ -26,6 +26,15 @@ def dlig2calt(fontPath, inplace=False):
 
     font['hmtx'].__setitem__('LIG', font['hmtx']['space'])
 
+    # set /LIG glyph width to /equal width, not /space, to allow proportional fonts
+
+    # print(font['glyf']._getPhantomPoints('LIG', font['hmtx'].metrics))
+
+    # newPhantomPoints = [(0,0), (600,0), (0, 0), (0, 0)]
+
+    font['glyf']._setCoordinates('LIG', [(0,0), (600,0), (0, 0), (0, 0)], font['hmtx'].metrics)
+
+
     # update code ligature widths to be single units with left overhang
     for glyphName in font.getGlyphNames():
         if font['hmtx'][glyphName][0] > unitWidth:
