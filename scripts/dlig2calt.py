@@ -1,6 +1,6 @@
 """
     A script to change dlig features to calt features, 
-    to make code ligatures on by default in Rec Mono for Code.
+    to make code ligatures on by default in Rec Code for Code.
 """
 
 from fontTools import ttLib

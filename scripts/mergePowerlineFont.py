@@ -1,5 +1,5 @@
 """
-    Script to include PowerLine glyphs by merging powerline-only TTFs with Rec Mono TTFs.
+    Script to include PowerLine glyphs by merging powerline-only TTFs with Rec Code TTFs.
     More background at https://github.com/arrowtype/recursive/issues/351
 
     Work in progress.

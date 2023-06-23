@@ -78,7 +78,7 @@ pip install -r requirements.txt  # install dependencies
 
 This file uses YAML. Hopefully, it is fairly self-explanatory. If not, file an issue and someone will hopefully help out!
 
-First, specify the family name you want (e.g. `Rec Mono Custom`). 
+First, specify the family name you want (e.g. `Rec Code Custom`). 
 
 Then, specify axis values you want for Regular, Italic, Bold, & Bold Italic fonts.
 
@@ -121,7 +121,7 @@ source venv/bin/activate         # activate the virtual environment if you haven
 python3 scripts/instantiate-code-fonts.py
 ```
 
-It will build & output fonts to a folder like `RecMono-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
+It will build & output fonts to a folder like `RecCode-Custom` (this is affected by whatever custom name you give fonts in config.yaml).
 
 #### 3. Install the fonts and activate the ligatures!
 
