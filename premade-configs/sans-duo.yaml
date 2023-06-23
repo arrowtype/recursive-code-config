@@ -30,8 +30,7 @@ Fonts:
     slnt: -10
     CRSV: 1
 
-# Note: must be set to False if you want to both have a proportional font (MONO < 1) and bake in code ligatures under the "calt" feature
-Code Ligatures: False
+Code Ligatures: True
 
 Features:
 - ss03 # Simplified f

@@ -68,7 +68,6 @@ Fonts:
 # Font Features
 
 # Freeze in code ligatures? True or False
-# Note: must be set to False if you want to both have a proportional font (MONO < 1) and bake in code ligatures under the "calt" feature
 Code Ligatures: True
 
 # Include font features to freeze in stylistic options. Copy them below to use. 
