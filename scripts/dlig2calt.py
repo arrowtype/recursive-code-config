@@ -27,14 +27,14 @@ def simpleDlig2calt(fontPath, inplace=False):
     ttxPath = fontPath.replace(".ttf",".ttx")
 
     # Read in the TTX file
-    with open(ttxPath, 'r') as file:
+    with open(ttxPath, 'r', encoding='utf-8') as file:
         ttxData = file.read()
 
     # Replace the target string to update the dlig feature tags to calt feature tags
     ttxData = ttxData.replace('"dlig"', '"calt"')
 
     # Write the TTX file out again
-    with open(ttxPath, 'w') as file:
+    with open(ttxPath, 'w', encoding='utf-8') as file:
         file.write(ttxData)
 
     # merge TTX back into font:
