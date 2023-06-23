@@ -76,7 +76,7 @@ def setFontNameID(font, ID, newName):
 oldName = "Recursive"
 
 def splitFont(
-        outputDirectory=f"RecCode{fontOptions['Family Name']}".replace(" ",""),
+        outputDirectory=f"RecCode{fontOptions['Family Name Suffix']}".replace(" ",""),
         newName="Rec Code",
 ):
 
@@ -108,7 +108,7 @@ def splitFont(
         currentPsName = getFontNameID(instanceFont, 6)
         newPsName = (currentPsName\
             .replace("Sans", "")\
-            .replace(oldName,newName.replace(" ", "") + fontOptions['Family Name'].replace(" ",""))\
+            .replace(oldName,newName.replace(" ", "") + fontOptions['Family Name Suffix'].replace(" ",""))\
             .replace("LinearLight", instance.replace(" ", "")))
         setFontNameID(instanceFont, 6, newPsName)
 
@@ -116,7 +116,7 @@ def splitFont(
         currentFullName = getFontNameID(instanceFont, 4)
         newFullName = (currentFullName\
             .replace("Sans", "")\
-            .replace(oldName, newName + " " + fontOptions['Family Name'])\
+            .replace(oldName, newName + " " + fontOptions['Family Name Suffix'])\
             .replace(" Linear Light", instance))\
             .replace(" Regular", "")
         setFontNameID(instanceFont, 4, newFullName)
@@ -138,7 +138,7 @@ def splitFont(
         setFontNameID(instanceFont, 16, newFamName)
 
         newFileName = fontFileName\
-            .replace(oldName, (newName + fontOptions['Family Name']).replace(" ", ""))\
+            .replace(oldName, (newName + fontOptions['Family Name Suffix']).replace(" ", ""))\
             .replace("_VF_", "-" + instance.replace(" ", "") + "-")
 
         # make dir for new fonts

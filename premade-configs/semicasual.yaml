@@ -1,8 +1,8 @@
 # Configuration for Rec Code SemiCasual
 # Here as an example, or to tweak & use if you wish to
-# See README for details.
+# See the project README and top-level config.yaml for details.
 
-Family Name: Semicasual 
+Family Name Suffix: Semicasual 
 
 Fonts:
   Regular:
