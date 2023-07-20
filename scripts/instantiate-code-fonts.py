@@ -40,7 +40,7 @@ except IndexError:
     fontPath =  glob.glob('./font-data/Recursive_VF_*.ttf')[0] # allows script to run without font path passed in.
 
 # read yaml config
-with open(configPath) as file:
+with open(configPath, encoding='utf-8') as file:
     fontOptions = yaml.load(file, Loader=yaml.FullLoader)
 
 # GET / SET NAME HELPER FUNCTIONS
