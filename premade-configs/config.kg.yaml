@@ -23,7 +23,7 @@
 # For a striking and inviting tone
 # web headlines, code snippets, command line interfaces
 
-Family Name: "11"
+Family Name: "12"
 
 # -----------------------------------------------------------------------------
 # Font Styles
@@ -42,30 +42,30 @@ Fonts:
   Regular:
     MONO: 1
     CASL: 1
-    wght: 400
+    wght: 500
     slnt: 0
     CRSV: 0
 
   Italic:
     MONO: 1
     CASL: 1
-    wght: 400
-    slnt: -15
-    CRSV: 0
-
-  Medium:
-    MONO: 1
-    CASL: 1
-    wght: 500
-    slnt: 0
-    CRSV: 0
-
-  Medium Italic:
-    MONO: 1
-    CASL: 1
     wght: 500
     slnt: -15
     CRSV: 0
+
+#  Medium:
+#    MONO: 1
+#    CASL: 1
+#    wght: 500
+#    slnt: 0
+#    CRSV: 0
+#
+#  Medium Italic:
+#    MONO: 1
+#    CASL: 1
+#    wght: 500
+#    slnt: -15
+#    CRSV: 0
 
   Semi Bold:
     MONO: 1
