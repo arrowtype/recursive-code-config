@@ -42,14 +42,14 @@ Fonts:
   Regular:
     MONO: 1
     CASL: 0.8
-    wght: 400
+    wght: 480
     slnt: 0
     CRSV: 0
 
   Italic:
     MONO: 1
     CASL: 1
-    wght: 400
+    wght: 480
     slnt: -15
     CRSV: 0
 
