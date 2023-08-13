@@ -14,14 +14,14 @@ git pull upstream main
 ```
 python -m venv venv             # make a virtual environment called "venv"
 bash
-source venv/bin/activate.fish         # activate the virtual environment
-pip install -r requirements.txt  # install dependencies
+source venv/bin/activate            # activate the virtual environment
+pip install -r requirements.txt     # install dependencies
 ```
 
 # build the font
 
 ```
 bash
-source venv/bin/activate.fish   # activate the virtual environment if you haven’t already
+source venv/bin/activate        # activate the virtual environment if you haven’t already
 python scripts/instantiate-code-fonts.py premade-configs/config.kg.yaml font-data/Recursive_VF_1.085.ttf
 ```
