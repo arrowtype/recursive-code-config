@@ -23,7 +23,7 @@
 # For a striking and inviting tone
 # web headlines, code snippets, command line interfaces
 
-Family Name: "14"
+Family Name: "15"
 
 # -----------------------------------------------------------------------------
 # Font Styles
@@ -107,7 +107,6 @@ Code Ligatures: True
 # (Keep the hyphen before each list item)
 Features:
 - dlig # Code ligatures
-- ss02 # Single story g
 - ss03 # Simplified f
 - ss07 # Simplified italic diagonals
 - ss08 # No-serif L and Z
@@ -117,5 +116,6 @@ Features:
 - case # Uppercase punctuation
 
 #- ss06 # Simplified r
+# - ss02 # Single story g
 
 # That’s it! See README for next steps.
