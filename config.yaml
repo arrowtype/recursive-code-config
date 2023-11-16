@@ -1,4 +1,4 @@
-# Configure your own custom Rec Mono for Code font
+# Configure your own custom Rec Code for Code font
 
 #                                                                              
 #                                             /$$$$$$     /$$                  
@@ -16,11 +16,11 @@
 # -----------------------------------------------------------------------------
 # Family Name
 
-# The name you want after "Rec Mono" in your custom fonts. 
-# Example: "Custom" will yield the family "Rec Mono Custom". 
+# The name you want after "Rec Code" in your custom fonts. 
+# Example: "Custom" will yield the family "Rec Code Custom". 
 # Keep under 13 characters in length to avoid potential OS bugs.
 
-Family Name: Custom 
+Family Name Suffix: Custom 
 
 # -----------------------------------------------------------------------------
 # Font Styles
@@ -71,7 +71,7 @@ Fonts:
 Code Ligatures: True
 
 # Include font features to freeze in stylistic options. Copy them below to use. 
-# See README for details.
+# See the project README for details.
 
 # These options only have an affect at CRSV<=0.5 (Roman/normal styles)
 # ss01 # Single-story a

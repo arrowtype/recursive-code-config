@@ -1,32 +1,32 @@
-# Configuration for Rec Code SemiCasual
+# Configuration for Rec Code Sans Duo
 # Here as an example, or to tweak & use if you wish to
 # See the project README and top-level config.yaml for details.
 
-Family Name Suffix: Semicasual 
+Family Name Suffix: Sans Duo
 
 Fonts:
   Regular:
-    MONO: 1
-    CASL: 0.5
+    MONO: 0
+    CASL: 0
     wght: 400
     slnt: 0
     CRSV: 0
   Italic:
-    MONO: 1
-    CASL: 0.5
+    MONO: 0
+    CASL: 1
     wght: 400
     slnt: -10
     CRSV: 1
   Bold:
-    MONO: 1
-    CASL: 0.5
-    wght: 700
+    MONO: 0
+    CASL: 0
+    wght: 750
     slnt: 0
     CRSV: 0
   Bold Italic:
-    MONO: 1
-    CASL: 0.5
-    wght: 700
+    MONO: 0
+    CASL: 1
+    wght: 750
     slnt: -10
     CRSV: 1
 
