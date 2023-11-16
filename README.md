@@ -49,7 +49,7 @@ You can also follow the instructions below. I have tried to make them pretty gra
 
 In a terminal, use `cd` to get to a folder you want this project in. Then, clone the repo and move into it:
 
-```
+```sh
 git clone https://github.com/arrowtype/recursive-code-config.git
 cd recursive-code-config
 ```
@@ -58,7 +58,7 @@ cd recursive-code-config
 
 Then, set up the venv and install requirements:
 
-```bash
+```sh
 python3 -m venv venv             # make a virtual environment called "venv"
 source venv/bin/activate         # activate the virtual environment
 pip install -r requirements.txt  # install dependencies
@@ -68,7 +68,7 @@ pip install -r requirements.txt  # install dependencies
 
 Setting up the venv and install requirements is slightly different in Windows, in my testing. Navigate to the project in a terminal, and then use the following commands:
 
-```bash
+```sh
 py -m venv venv                  # make a virtual environment called "venv"
 venv\Scripts\activate            # activate the virtual environment 
 pip install -r requirements.txt  # install dependencies
